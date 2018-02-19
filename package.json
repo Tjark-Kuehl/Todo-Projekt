@@ -12,7 +12,7 @@
     "watch": [
       "*.*"
     ],
-    "ext": "js html hbs json"
+    "ext": "js html json"
   },
   "devDependencies": {
     "nodemon": "^1.15.0"
