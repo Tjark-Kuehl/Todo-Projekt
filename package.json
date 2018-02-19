@@ -1,0 +1,21 @@
+{
+  "name": "todo_projekt",
+  "version": "1.0.0",
+  "description": "Ein Schulprojekt um sich besser zu organisieren",
+  "main": "index.js",
+  "scripts": {
+    "cloud": "nodemon index.js"
+  },
+  "keywords": [
+    "schule",
+    "projekt",
+    "todo",
+    "node",
+    "javascript"
+  ],
+  "author": "Bennet Russnak, Rami Gomaa, Tjark Kühl",
+  "license": "ISC",
+  "devDependencies": {
+    "nodemon": "^1.15.0"
+  }
+}
