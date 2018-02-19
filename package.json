@@ -4,7 +4,24 @@
   "description": "Ein Schulprojekt um sich besser zu organisieren",
   "main": "index.js",
   "scripts": {
-    "cloud": "nodemon index.js"
+    "server": "nodemon index.js --exec babel-node"
+  },
+  "nodemonConfig": {
+    "ignore": [],
+    "delay": "50",
+    "watch": [
+      "*.*"
+    ],
+    "ext": "js html hbs json"
+  },
+  "devDependencies": {
+    "nodemon": "^1.15.0"
+  },
+  "dependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-core": "^6.26.0",
+    "babel-preset-env": "^1.6.1",
+    "express": "^4.16.2"
   },
   "keywords": [
     "schule",
@@ -14,8 +31,5 @@
     "javascript"
   ],
   "author": "Bennet Russnak, Rami Gomaa, Tjark Kühl",
-  "license": "ISC",
-  "devDependencies": {
-    "nodemon": "^1.15.0"
-  }
+  "license": "ISC"
 }
