@@ -1,14 +1,18 @@
-/* Import Express*/
-import express from 'express'
+import http from 'http'
+import { Router } from './framework/router'
+import { Request } from './framework/request'
 
-/* Creating Express instance
- * To create listener instance */
-const app = express()
+//import pathCfg from './config/paths'
+import cfg from './config/global'
 
-app.get('/', (req, res) => {
-    res.send('Hello World!')
+const router = new Router(__dirname, cfg.viewPath)
+
+http.createServer((req, res) => {
+    /* HTTP Header */
+    res.writeHead(200, { 'Content-Type': 'text/html' })
+
+    const request = new Request(req)
 })
-
-app.listen(3000, () => {
-    console.log('Example app listening on port 3000!')
-})
+    .listen(3000, () => {
+        console.log('server start at port 3000')
+    })
