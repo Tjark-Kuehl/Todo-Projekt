@@ -1,0 +1,8 @@
+{
+  "/": {
+    "loginRequired": false
+  },
+  "/user/profile": {
+    "loginRequired": true
+  }
+}
