@@ -1,6 +1,7 @@
 import fs from 'fs'
 import path from 'path'
 import pathCfg from '../config/paths'
+import globCfg from '../config/global'
 
 export class Router {
     constructor(ctx, path) {
@@ -12,14 +13,29 @@ export class Router {
 
     _init() {
         this._readView(this.path)
+        console.log(this.views)
     }
 
     /***
      * Adds path to views array
+     * If the settings exist
      * @param viewPath
      */
     addView(viewPath) {
-        this.views.push(viewPath)
+        // Mapped index to /
+        if (viewPath === '/index') {
+            viewPath = '/'
+        }
+
+        // If viewPath config not exist
+        if (!pathCfg[viewPath]) {
+            console.error(`Error: View file for '${viewPath}' not found!`)
+            return
+        }
+
+        this.views[viewPath] = {
+            ...pathCfg[viewPath]
+        }
     }
 
     /***
@@ -35,7 +51,11 @@ export class Router {
             if (stats.isDirectory()) {
                 this._readView(path.resolve(viewPath, file))
             } else {
-                this.addView(path.join(rPath, file))
+                let cutLen = path.join(globCfg['viewPath']).length
+                let viewFormat = path.join(rPath, file)
+                                     .substr(cutLen)
+                                     .replace(/.html/gi, '')
+                this.addView(viewFormat.startsWith('/') ? viewFormat : '/' + viewFormat)
             }
         }
     }
