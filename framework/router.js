@@ -4,8 +4,8 @@ import pathCfg from '../config/paths'
 import globCfg from '../config/global'
 
 export class Router {
-    constructor(ctx, path) {
-        this.path = path
+    constructor(ctx) {
+        this.path = globCfg.viewPath
         this.ctxPath = ctx
         this.views = []
         this._init()
@@ -13,7 +13,27 @@ export class Router {
 
     _init() {
         this._readView(this.path)
-        console.log(this.views)
+    }
+
+    /**
+     * Returns the requested view
+     * @param reqPath
+     */
+    getView(reqPath) {
+        return new Promise((resolve, reject) => {
+            let resPath = ''
+            if (this.views[reqPath]) {
+                resPath = path.join(globCfg['viewPath'], this.views[reqPath].src)
+            } else {
+                resPath = path.join(globCfg['viewPath'], globCfg['404file'])
+            }
+            fs.readFile(resPath, 'UTF-8', (err, data) => {
+                if (err) {
+                    return reject(err)
+                }
+                return resolve(data)
+            })
+        })
     }
 
     /***
@@ -36,6 +56,7 @@ export class Router {
         this.views[viewPath] = {
             ...pathCfg[viewPath]
         }
+        console.log(`Router: Path '${viewPath}' added.`)
     }
 
     /***
