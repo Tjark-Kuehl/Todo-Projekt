@@ -1,10 +1,20 @@
-{
-  "/": {
+[
+  {
+    "type": "view",
+    "requestURL": "/",
     "src": "index.html",
     "loginRequired": false
   },
-  "/user/profile": {
+  {
+    "type": "404",
+    "requestURL": "/404",
+    "src": "error/404.html",
+    "loginRequired": false
+  },
+  {
+    "type": "view",
+    "requestURL": "/user/profile",
     "src": "user/profile.html",
     "loginRequired": true
   }
-}
+]

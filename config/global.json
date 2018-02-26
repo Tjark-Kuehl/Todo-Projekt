@@ -1,4 +1,3 @@
 {
-  "viewPath": "./views/",
-  "404file": "404.html"
+  "viewPath": "./views/"
 }

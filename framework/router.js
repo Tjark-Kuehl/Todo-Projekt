@@ -25,7 +25,7 @@ export class Router {
             if (this.views[reqPath]) {
                 resPath = path.join(globCfg['viewPath'], this.views[reqPath].src)
             } else {
-                resPath = path.join(globCfg['viewPath'], globCfg['404file'])
+                resPath = path.join(globCfg['viewPath'], this.views[globCfg['notFound']].src)
             }
             fs.readFile(resPath, 'UTF-8', (err, data) => {
                 if (err) {
@@ -41,22 +41,11 @@ export class Router {
      * If the settings exist
      * @param viewPath
      */
-    addView(viewPath) {
-        // Mapped index to /
-        if (viewPath === '/index') {
-            viewPath = '/'
+    addView(fileObject) {
+        this.views[fileObject['requestURL']] = {
+            ...fileObject
         }
-
-        // If viewPath config not exist
-        if (!pathCfg[viewPath]) {
-            console.error(`Error: View file for '${viewPath}' not found!`)
-            return
-        }
-
-        this.views[viewPath] = {
-            ...pathCfg[viewPath]
-        }
-        console.log(`Router: Path '${viewPath}' added.`)
+        console.log(`Router: Path '${fileObject['requestURL']}' added.`)
     }
 
     /***
@@ -64,19 +53,21 @@ export class Router {
      * @param viewPath
      */
     _readView(viewPath) {
-        /* Ensure that path is a relative path */
-        const rPath = path.relative(this.ctxPath, viewPath)
-        const files = fs.readdirSync(rPath)
-        for (let file of files) {
-            const stats = fs.statSync(path.resolve(viewPath, file))
-            if (stats.isDirectory()) {
-                this._readView(path.resolve(viewPath, file))
+        for (let file of pathCfg) {
+            /* Ensure that path is a relative path */
+            const rPath = path.relative(this.ctxPath, viewPath)
+            const filePath = path.join(rPath, file['src'])
+            if (fs.existsSync(rPath)) {
+                if (file['requestURL'] === '/') {
+                    this.addView({
+                        ...file,
+                        requestURL: '/index'
+                    })
+                }
+                this.addView(file)
             } else {
-                let cutLen = path.join(globCfg['viewPath']).length
-                let viewFormat = path.join(rPath, file)
-                                     .substr(cutLen)
-                                     .replace(/.html/gi, '')
-                this.addView(viewFormat.startsWith('/') ? viewFormat : '/' + viewFormat)
+                console.error(`Error: View file for '${file['requestURL']}' not found!`)
+                return
             }
         }
     }
