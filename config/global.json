@@ -1,3 +1,6 @@
 {
-  "viewPath": "./views/"
+  "viewPath": "./views/",
+  "cssPath": "./static/css/",
+  "outputPath": "./out/",
+  "secretKey": "ej()a-2n_7o)(_b)ea$d@#+p4o2%5f0m8b4+xk$lk=kx3&2+e1"
 }
