@@ -8,12 +8,14 @@
     "server": "nodemon index.js --exec babel-node"
   },
   "nodemonConfig": {
-    "ignore": [],
+    "ignore": [
+      "out/"
+    ],
     "delay": "50",
     "watch": [
       "*.*"
     ],
-    "ext": "css js json"
+    "ext": "html css js json"
   },
   "devDependencies": {
     "nodemon": "^1.15.0"

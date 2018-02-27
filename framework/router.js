@@ -6,12 +6,7 @@ import globCfg from '../config/global'
 
 export class Router {
     constructor(ctx) {
-        /*
-         this.path = globCfg.viewPath
-         this.ctxPath = ctx
-         */
         this.ctxPath = ctx
-        this.fullPath = path.relative(ctx, globCfg.viewPath)
         this.views = []
         this._init()
     }
@@ -21,21 +16,28 @@ export class Router {
     }
 
     _compileView(viewObject) {
-        fs.readFile(path.join(this.ctxPath, globCfg.viewPath, viewObject['src']), 'UTF-8', (err, data) => {
+        fs.readFile(path.join(this.ctxPath, globCfg.viewPath, viewObject['src']), 'utf8', (err, data) => {
             if (err) {
                 throw err
             }
             if (data) {
-                let matched = /{{[\s]*([^|\s]+)[\s]*[|]?[\s]*([^\s]*)[\s]*}}/.exec(data)
-                if (matched) {
+                let matched = ''
+                while (matched = /{{[\s]*([^|\s]+)[\s]*[|]?[\s]*([^\s]*)[\s]*}}/.exec(data)) {
                     switch (matched[1]) {
                         /* CSS Stylesheet */
                         case 'style': {
-                            const filePath = path.join(this.ctxPath, globCfg.cssPath, matched[2])
-                            //if (!fs.existsSync(filePath)) {
-                            const data2 = fs.readFileSync(filePath, 'UTF-8')
+                            let data2 = '<style>'
+                            data2 += fs.readFileSync(path.join(this.ctxPath, globCfg.cssPath, matched[2]), 'utf8')
+                            data2 += '</style>'
                             data = data.replace(matched[0], data2)
-                            //}
+                            break
+                        }
+                        /* Javascript */
+                        case 'script': {
+                            let data2 = '<script>'
+                            data2 += fs.readFileSync(path.join(this.ctxPath, globCfg.jsPath, matched[2]), 'utf8')
+                            data2 += '</script>'
+                            data = data.replace(matched[0], data2)
                             break
                         }
                         default: {
@@ -66,12 +68,17 @@ export class Router {
     getView(reqPath) {
         return new Promise((resolve, reject) => {
             let resPath = ''
-            if (this.views[reqPath]) {
+            if (this.views[reqPath].src) {
+                console.log(reqPath)
                 resPath = path.join(globCfg['viewPath'], this.views[reqPath].src)
             } else {
+                console.log(reqPath)
                 resPath = path.join(globCfg['viewPath'], this.views[globCfg['notFound']].src)
             }
-            fs.readFile(resPath, 'UTF-8', (err, data) => {
+            if (resPath) {
+                return reject('No resource given!')
+            }
+            fs.readFile(resPath, 'utf8', (err, data) => {
                 if (err) {
                     return reject(err)
                 }
