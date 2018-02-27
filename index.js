@@ -1,6 +1,14 @@
 import http from 'http'
+import path from 'path'
 import { Router } from './framework/router'
 import { Request } from './framework/request'
+import { mkdir } from './lib/extensions'
+import globCfg from './config/global'
+
+// Create project directorys
+mkdir(path.join(__dirname, globCfg.viewPath))
+mkdir(path.join(__dirname, globCfg.cssPath))
+mkdir(path.join(__dirname, globCfg.outputPath))
 
 const router = new Router(__dirname)
 
