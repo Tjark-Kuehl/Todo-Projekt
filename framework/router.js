@@ -69,13 +69,12 @@ export class Router {
         return new Promise((resolve, reject) => {
             let resPath = ''
             if (this.views[reqPath].src) {
-                console.log(reqPath)
                 resPath = path.join(globCfg['viewPath'], this.views[reqPath].src)
             } else {
-                console.log(reqPath)
                 resPath = path.join(globCfg['viewPath'], this.views[globCfg['notFound']].src)
             }
-            if (resPath) {
+            
+            if (!resPath) {
                 return reject('No resource given!')
             }
             fs.readFile(resPath, 'utf8', (err, data) => {

@@ -21,8 +21,10 @@ http.createServer(async (req, res) => {
     res.writeHead(200, { 'Content-Type': 'text/html' })
 
     const request = new Request(req)
+
     let content = ''
-    if (request.pathURL !== 'favicon.ico') {
+
+    if (!Request.filter(request.pathURL)) {
         content = await router.getView(request.pathURL)
     }
 
