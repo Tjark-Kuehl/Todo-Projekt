@@ -73,7 +73,6 @@ export class Router {
             } else {
                 resPath = path.join(globCfg['viewPath'], this.views[globCfg['notFound']].src)
             }
-            
             if (!resPath) {
                 return reject('No resource given!')
             }

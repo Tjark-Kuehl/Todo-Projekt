@@ -6,13 +6,13 @@ import { mkDir, unlinkDir } from './lib/extensions'
 import globCfg from './config/global'
 
 // Clears outputPath
-unlinkDir(path.join(__dirname, globCfg.outputPath))
+unlinkDir(path.relative(__dirname, globCfg.outputPath))
 
 // Create project directorys
-mkDir(path.join(__dirname, globCfg.viewPath))
-mkDir(path.join(__dirname, globCfg.cssPath))
-mkDir(path.join(__dirname, globCfg.jsPath))
-mkDir(path.join(__dirname, globCfg.outputPath))
+mkDir(path.relative(__dirname, globCfg.viewPath))
+mkDir(path.relative(__dirname, globCfg.cssPath))
+mkDir(path.relative(__dirname, globCfg.jsPath))
+mkDir(path.relative(__dirname, globCfg.outputPath))
 
 const router = new Router(__dirname)
 
