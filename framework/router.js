@@ -1,8 +1,17 @@
+/* Default Dependencies */
 import fs from 'fs'
 import path from 'path'
 import crypto from 'crypto'
 import pathCfg from '../config/paths'
 import globCfg from '../config/global'
+
+/* JS Dependencies */
+import UglifyJS from 'uglify-es'
+import uglify_options from '../config/uglify-js'
+
+/* CSS Dependencies */
+import sass from 'node-sass'
+import CleanCSS from 'clean-css'
 
 export class Router {
     constructor(ctx) {
@@ -59,7 +68,9 @@ export class Router {
                     /* CSS Stylesheet */
                     case 'style': {
                         let style_data = '<style>'
-                        style_data += fs.readFileSync(path.join(this.ctxPath, globCfg.cssPath, matched[2]), 'utf8')
+                        style_data += new CleanCSS({ level: 2 }).minify(sass.renderSync({
+                            data: fs.readFileSync(path.join(this.ctxPath, globCfg.cssPath, matched[2]), 'utf8')
+                        }).css.toString()).styles
                         style_data += '</style>'
                         data = data.replace(matched[0], style_data)
                         break
@@ -67,7 +78,10 @@ export class Router {
                     /* Javascript */
                     case 'script': {
                         let script_data = '<script>'
-                        script_data += fs.readFileSync(path.join(this.ctxPath, globCfg.jsPath, matched[2]), 'utf8')
+                        script_data += UglifyJS.minify(
+                            fs.readFileSync(path.join(this.ctxPath, globCfg.jsPath, matched[2]), 'utf8'),
+                            uglify_options
+                        ).code
                         script_data += '</script>'
                         data = data.replace(matched[0], script_data)
                         break
