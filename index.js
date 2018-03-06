@@ -2,13 +2,17 @@ import http from 'http'
 import path from 'path'
 import { Router } from './framework/router'
 import { Request } from './framework/request'
-import { mkdir } from './lib/extensions'
+import { mkDir, unlinkDir } from './lib/extensions'
 import globCfg from './config/global'
 
+// Clears outputPath
+unlinkDir(path.relative(__dirname, globCfg.outputPath))
+
 // Create project directorys
-mkdir(path.join(__dirname, globCfg.viewPath))
-mkdir(path.join(__dirname, globCfg.cssPath))
-mkdir(path.join(__dirname, globCfg.outputPath))
+mkDir(path.relative(__dirname, globCfg.viewPath))
+mkDir(path.relative(__dirname, globCfg.cssPath))
+mkDir(path.relative(__dirname, globCfg.jsPath))
+mkDir(path.relative(__dirname, globCfg.outputPath))
 
 const router = new Router(__dirname)
 
@@ -17,8 +21,10 @@ http.createServer(async (req, res) => {
     res.writeHead(200, { 'Content-Type': 'text/html' })
 
     const request = new Request(req)
+
     let content = ''
-    if (request.pathURL !== 'favicon.ico') {
+
+    if (!Request.filter(request.pathURL)) {
         content = await router.getView(request.pathURL)
     }
 

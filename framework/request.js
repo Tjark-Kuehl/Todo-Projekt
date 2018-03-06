@@ -19,6 +19,10 @@ export class Request {
         throw 'get: value not found!'
     }
 
+    static filter(requestPath) {
+        return /^(\/favicon\.ico)|(\/public\/.*)/.exec(requestPath)
+    }
+
     /**
      * Parses the path for the router
      * @private
@@ -41,7 +45,7 @@ export class Request {
     _parseGet(query) {
         let match = undefined
         let rgx = /[?|&]([\w_äÄöÖüÜß]+)=([^&\s]+)/g
-        while (match = rgx.exec(this.rawURL)) {
+        while (match = rgx.exec(query)) {
             this.getParams[match[1]] = match[2]
         }
     }
