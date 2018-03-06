@@ -1,4 +1,4 @@
-h1 {
+/*h1 {
   color: red
 }
 
@@ -21,4 +21,11 @@ ul.ul {
     font-size: 100px;
   }
 
-}
+}*/
+/* http://meyerweb.com/eric/tools/css/reset/
+   v2.0 | 20110126
+   License: none (public domain)
+*/
+
+@import "elements/css-reset";
+@import "elements/main-layout";
