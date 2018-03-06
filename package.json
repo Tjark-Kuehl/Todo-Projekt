@@ -26,6 +26,7 @@
     "babel-plugin-transform-object-rest-spread": "^6.26.0",
     "babel-preset-env": "^1.6.1",
     "clean-css": "^4.1.9",
+    "html-minifier": "^3.5.10",
     "jsonwebtoken": "^8.2.0",
     "node-sass": "^4.7.2",
     "pg": "^7.4.1",

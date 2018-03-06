@@ -5,6 +5,10 @@ import crypto from 'crypto'
 import pathCfg from '../config/paths'
 import globCfg from '../config/global'
 
+/* HTML Dependencies */
+import { minify as HTMLminify } from 'html-minifier'
+import htmlminify_options from '../config/html-minify'
+
 /* JS Dependencies */
 import UglifyJS from 'uglify-es'
 import uglify_options from '../config/uglify-js'
@@ -69,7 +73,8 @@ export class Router {
                     case 'style': {
                         let style_data = '<style>'
                         style_data += new CleanCSS({ level: 2 }).minify(sass.renderSync({
-                            data: fs.readFileSync(path.join(this.ctxPath, globCfg.cssPath, matched[2]), 'utf8')
+                            data: fs.readFileSync(path.join(this.ctxPath, globCfg.cssPath, matched[2]), 'utf8'),
+                            includePaths: [globCfg.cssPath]
                         }).css.toString()).styles
                         style_data += '</style>'
                         data = data.replace(matched[0], style_data)
@@ -95,7 +100,10 @@ export class Router {
             fileName = crypto.createHmac('sha1', globCfg.secretKey)
                              .update(resData)
                              .digest('hex') + '.html'
-            fs.writeFileSync(path.join(this.ctxPath, globCfg.outputPath, fileName), resData)
+            fs.writeFileSync(
+                path.join(this.ctxPath, globCfg.outputPath, fileName),
+                HTMLminify(resData, htmlminify_options)
+            )
             return {
                 ...viewObject,
                 compiledFile: fileName
