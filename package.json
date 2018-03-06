@@ -15,7 +15,7 @@
     "watch": [
       "*.*"
     ],
-    "ext": "html css js json"
+    "ext": "js html scss sass json"
   },
   "devDependencies": {
     "nodemon": "^1.15.0"
