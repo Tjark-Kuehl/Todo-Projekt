@@ -72,10 +72,21 @@ export class Router {
                     /* CSS Stylesheet */
                     case 'style': {
                         let style_data = '<style>'
-                        style_data += new CleanCSS({ level: 2 }).minify(sass.renderSync({
+
+                        let cssPlain = sass.renderSync({
                             data: fs.readFileSync(path.join(this.ctxPath, globCfg.cssPath, matched[2]), 'utf8'),
                             includePaths: [globCfg.cssPath]
-                        }).css.toString()).styles
+                        }).css.toString()
+
+                        let matched2 = ''
+                        while (matched2 = /url\(['"]?(.+\.svg)['"]?\)/.exec(cssPlain)) {
+                            let data = fs.readFileSync(path.join(this.ctxPath, globCfg.imgPath, matched2[1]))
+                                         .toString('base64')
+                            cssPlain = cssPlain.replace(matched2[1], `data:image/svg+xml;base64,${data}`)
+                        }
+
+                        style_data += new CleanCSS({ level: 2 }).minify(cssPlain).styles
+
                         style_data += '</style>'
                         data = data.replace(matched[0], style_data)
                         break
