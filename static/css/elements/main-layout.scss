@@ -1,2 +1,9 @@
-h1{color:blue;}
-button{color:red;}
+h1 {color: blue;}
+
+button {color: red;}
+
+div.image {
+  width: 200px;
+  height: 200px;
+  background-image: url("test.svg");
+}
