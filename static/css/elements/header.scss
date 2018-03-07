@@ -4,6 +4,7 @@ header {
   padding: $theme-height-padding $theme-with-padding;
   display: flex;
   justify-content: space-between;
-  /*.header--nav--main{
-    &::before{background-image: url("../../img/menu_bars.svg")}funktioniert noch nicht*/
+  .header--nav--main{
+    &::before{background-image: url("../img/menu_bars.svg")}
+  }
 }
