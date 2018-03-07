@@ -17,10 +17,27 @@
         </nav>
     </header>
     <section class="content">
-        <div class="row row--task">
-            <button>Neuer Task</button>
+        <div class="row row--task row--task-new">
+            <button class="btn btn--new_task">Neuer Task</button>
         </div>
+        <div class="row row--task">
+                <span class="row-item task-headline">
+                    <p><span class="task_number">1</span>. <span class="task_name">Einkaufen</span></p>
+                </span>
+                <span class="row-item">
+                    <p>Erledigen bis:<span class="deadline_date">25.05.2018</span><input type="checkbox" class="checkbox" name="" placeholder="checkbox" /></p>
+                </span>
+        </div>
+
     </section>
+    <footer>
+        <ul>
+            <li>&copy;</li>
+            <li>Bennet Russnak</li>
+            <li>Tjark Kühl</li>
+            <li>Rami Gomaa</li>
+        </ul>
+    </footer>
 </section>
 {{ style | main.scss }}
 {{ script | test.js }}
