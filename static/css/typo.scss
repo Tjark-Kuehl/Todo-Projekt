@@ -1,0 +1,8 @@
+body{
+  font-size: $font-size-main;
+  font-family: 'Roboto', sans-serif;
+  h1{font-size: $h1-size; color: $h1-color;}
+  h2{font-size: $h2-size; color: $h2-color;}
+  h3{font-size: $h3-size; color: $h3-color;}
+  p{margin-bottom: $p-margin;}
+}

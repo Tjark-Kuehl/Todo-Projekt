@@ -1,0 +1,15 @@
+.row{
+  background: $task-background;
+  margin-bottom: $margin-content-items;
+  box-sizing: border-box;
+  padding: $row-padding-y $row-padding-x;
+  &--task-new{text-align: center;}
+
+  &:last-of-type{margin-bottom:0;}
+  .task-headline{
+    font-size: $task-headline-size;
+    text-align: center;
+    width: 100%;
+    color: $task-headline-color
+  }
+}

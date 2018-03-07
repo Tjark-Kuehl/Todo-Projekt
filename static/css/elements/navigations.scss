@@ -1,0 +1,10 @@
+.header--nav{
+  ul{display: none;}
+  &::before{
+    display: block;
+    width: 2rem;
+    height: 2rem;
+    content: "";
+    background: no-repeat 100% #FFF;
+  }
+}
