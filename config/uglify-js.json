@@ -1,7 +1,0 @@
-{
-  "ecma": 6,
-  "compress": {
-    "passes": 2
-  },
-  "safari10": true
-}

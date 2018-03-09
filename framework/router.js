@@ -2,20 +2,14 @@
 import fs from 'fs'
 import path from 'path'
 import crypto from 'crypto'
+import { gzipSync } from 'zlib'
 import pathCfg from '../config/paths'
 import globCfg from '../config/global'
 
-/* HTML Dependencies */
+import sass from 'node-sass'
 import { minify as HTMLminify } from 'html-minifier'
 import htmlminify_options from '../config/html-minify'
-
-/* JS Dependencies */
-import UglifyJS from 'uglify-es'
-import uglify_options from '../config/uglify-js'
-
-/* CSS Dependencies */
-import sass from 'node-sass'
-import CleanCSS from 'clean-css'
+import { compressSync as brotliSync } from 'iltorb'
 
 export class Router {
     constructor(ctx) {
@@ -73,19 +67,17 @@ export class Router {
                     case 'style': {
                         let style_data = '<style>'
 
-                        let cssPlain = sass.renderSync({
+                        style_data += sass.renderSync({
                             data: fs.readFileSync(path.join(this.ctxPath, globCfg.cssPath, matched[2]), 'utf8'),
                             includePaths: [globCfg.cssPath]
                         }).css.toString()
 
                         let matched2 = ''
-                        while (matched2 = /url\(['"]?(.+\.svg)['"]?\)/.exec(cssPlain)) {
+                        while (matched2 = /url\(['"]?(.+\.svg)['"]?\)/.exec(style_data)) {
                             let data = fs.readFileSync(path.join(this.ctxPath, globCfg.imgPath, matched2[1]))
                                          .toString('base64')
-                            cssPlain = cssPlain.replace(matched2[1], `data:image/svg+xml;base64,${data}`)
+                            style_data = style_data.replace(matched2[1], `data:image/svg+xml;base64,${data}`)
                         }
-
-                        style_data += new CleanCSS({ level: 2 }).minify(cssPlain).styles
 
                         style_data += '</style>'
                         data = data.replace(matched[0], style_data)
@@ -94,10 +86,7 @@ export class Router {
                     /* Javascript */
                     case 'script': {
                         let script_data = '<script>'
-                        script_data += UglifyJS.minify(
-                            fs.readFileSync(path.join(this.ctxPath, globCfg.jsPath, matched[2]), 'utf8'),
-                            uglify_options
-                        ).code
+                        script_data += fs.readFileSync(path.join(this.ctxPath, globCfg.jsPath, matched[2]), 'utf8')
                         script_data += '</script>'
                         data = data.replace(matched[0], script_data)
                         break
@@ -107,14 +96,36 @@ export class Router {
                     }
                 }
             }
-            const resData = template.replace(/{{*\sbody\s*}}/, data)
+
+            // Load main template and passes the whole HTML to it
+            let resData = template.replace(/{{*\sbody\s*}}/, data)
             fileName = crypto.createHmac('sha1', globCfg.secretKey)
                              .update(resData)
                              .digest('hex') + '.html'
+
+            resData = HTMLminify(resData, htmlminify_options)
+
+            // Writes final file
             fs.writeFileSync(
                 path.join(this.ctxPath, globCfg.outputPath, fileName),
-                HTMLminify(resData, htmlminify_options)
+                resData
             )
+
+            // Creates UTF8 buffer
+            let buffer = new Buffer(resData, 'utf8')
+
+            // Create gzip out of data
+            fs.writeFileSync(
+                path.join(this.ctxPath, globCfg.outputPath, fileName + '.gz'),
+                gzipSync(buffer)
+            )
+
+            // Create brotli out of data
+            fs.writeFileSync(
+                path.join(this.ctxPath, globCfg.outputPath, fileName + '.br'),
+                brotliSync(buffer)
+            )
+
             return {
                 ...viewObject,
                 compiledFile: fileName
