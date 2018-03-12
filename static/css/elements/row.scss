@@ -3,15 +3,28 @@
   margin-bottom: $margin-content-items;
   box-sizing: border-box;
   padding: $row-padding-y $row-padding-x;
-  &--task-new{
+  flex-wrap: wrap;
+  &--task--new{
     text-align: center;
   }
 
   &:last-of-type{margin-bottom:0;}
-  .task-headline{
+  .task--headline{
     font-size: $task-headline-size;
     text-align: center;
-    width: 100%;
     color: $task-headline-color
   }
+}
+.row--task{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    p{display: inline-block;
+      margin-bottom: 0;
+    }
+    .info-done{
+      display: flex;
+      justify-content: center;
+      align-content: center;
+    }
 }
