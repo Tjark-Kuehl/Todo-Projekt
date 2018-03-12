@@ -1,8 +1,16 @@
 body{
   font-size: $font-size-main;
   font-family: 'Roboto', sans-serif;
-  h1{font-size: $h1-size; color: $h1-color;}
-  h2{font-size: $h2-size; color: $h2-color;}
-  h3{font-size: $h3-size; color: $h3-color;}
+  h1{font-size: $h1-size; color: $h1-color;display: flex;align-items: center;}
+  h2{font-size: $h2-size; color: $h2-color;display: flex;align-items: center;}
+  h3{font-size: $h3-size; color: $h3-color;display: flex;align-items: center;}
   p{margin-bottom: $p-margin;}
+}
+
+body {
+  @media (min-width: 768px) {
+    h1 {font-size: $h1-size*1.2;}
+    h2 {font-size: $h2-size*1.2;}
+    h3 {font-size: $h3-size*1.2;}
+  }
 }

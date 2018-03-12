@@ -9,3 +9,9 @@
     flex-shrink: 0;
   }
 }
+@media (min-width: 1024px) {
+  .wrapper{
+    width: 1000px;
+    margin: 0 auto;
+  }
+}
