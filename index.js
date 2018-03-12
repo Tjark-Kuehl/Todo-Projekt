@@ -2,7 +2,7 @@ import http from 'http'
 import path from 'path'
 import { Router } from './framework/router'
 import { Request } from './framework/request'
-import { mkDir, unlinkDir } from './lib/extensions'
+import { mkDir, unlinkDir } from './lib/server/extensions'
 import globCfg from './config/global'
 
 // Clears outputPath
@@ -31,6 +31,6 @@ http.createServer(async (req, res) => {
     res.write(content)
     res.end()
 })
-    .listen(3000, () => {
+    .listen(globCfg.port, () => {
         console.log('server start at port 3000')
     })
