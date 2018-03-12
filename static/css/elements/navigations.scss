@@ -9,4 +9,11 @@
     background-size: 70%;
     background-position: center center;
   }
+  .triggered{
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    background: #ffffffb3;
+    padding: 1rem;
+  }
 }
