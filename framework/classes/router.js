@@ -3,12 +3,12 @@ import fs from 'fs'
 import path from 'path'
 import crypto from 'crypto'
 import { gzipSync } from 'zlib'
-import pathCfg from '../config/paths'
-import globCfg from '../config/global'
+import pathCfg from '../../config/paths'
+import globCfg from '../../config/global'
 
 import sass from 'node-sass'
 import { minify as HTMLminify } from 'html-minifier'
-import htmlminify_options from '../config/html-minify'
+import htmlminify_options from '../../config/html-minify'
 import { compressSync as brotliSync } from 'iltorb'
 
 export class Router {
@@ -59,7 +59,6 @@ export class Router {
         let data = fs.readFileSync(path.join(this.ctxPath, globCfg.viewPath, viewObject['src']), 'utf8')
         if (data) {
             let matched = ''
-
             /* Get all files to import (templating syntax) */
             while (matched = /{{[\s]*([^|\s]+)[\s]*[|]?[\s]*([^\s]*)[\s]*}}/.exec(data)) {
                 switch (matched[1]) {
@@ -166,6 +165,18 @@ export class Router {
         return entrys
     }
 
+    /***
+     * Adds path to views array
+     * If the settings exist
+     * @param viewPath
+     */
+    addView(fileObject) {
+        this.views[fileObject['requestURL']] = {
+            ...fileObject
+        }
+        console.log(`Router: Path '${fileObject['requestURL']}' added.`)
+    }
+
     /**
      * Returns the requested view
      * @param reqPath
@@ -173,10 +184,10 @@ export class Router {
     getView(reqPath) {
         return new Promise((resolve, reject) => {
             let resPath = ''
-            if (this.views[reqPath].src) {
+            if (this.views[reqPath]) {
                 resPath = path.join(globCfg['outputPath'], this.views[reqPath].compiledFile)
             } else {
-                resPath = path.join(globCfg['outputPath'], this.views[globCfg['notFound']].compiledFile)
+                resPath = path.join(globCfg['outputPath'], this.views[globCfg['fileNotFound']].compiledFile)
             }
             if (!resPath) {
                 return reject('No resource given!')
@@ -188,17 +199,5 @@ export class Router {
                 return resolve(data)
             })
         })
-    }
-
-    /***
-     * Adds path to views array
-     * If the settings exist
-     * @param viewPath
-     */
-    addView(fileObject) {
-        this.views[fileObject['requestURL']] = {
-            ...fileObject
-        }
-        console.log(`Router: Path '${fileObject['requestURL']}' added.`)
     }
 }

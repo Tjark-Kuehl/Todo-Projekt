@@ -5,5 +5,7 @@
   "imgPath": "./static/img",
   "outputPath": "./out/",
   "viewTemplatePath": "./views/_template.html",
-  "secretKey": "ej()a-2n_7o)(_b)ea$d@#+p4o2%5f0m8b4+xk$lk=kx3&2+e1"
+  "fileNotFound": "/404",
+  "secretKey": "ej()a-2n_7o)(_b)ea$d@#+p4o2%5f0m8b4+xk$lk=kx3&2+e1",
+  "port": 3000
 }
