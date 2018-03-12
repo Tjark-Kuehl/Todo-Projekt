@@ -5,6 +5,9 @@ header {
   display: flex;
   justify-content: space-between;
   .header--nav--main{
-    &::before{background-image: url("../img/menu_bars.svg")}
+    &::before{background-image: url("menu_bars.svg")}
+  }
+  .header--nav--profil{
+    &::before{background-image: url("profile.svg")}
   }
 }
