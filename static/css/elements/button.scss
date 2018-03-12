@@ -18,3 +18,16 @@
     }
   }
 }
+.btn-save{
+  background: #7777ef;
+  border: 1px solid #FFF;
+  padding: 0.5rem;
+  border-radius: 4rem;
+  margin-left: 1rem;
+  color: #FFF;
+  &:hover{
+    background: #FFF;
+    border: 1px solid  #7777ef;
+    color: #7777ef;
+  }
+}

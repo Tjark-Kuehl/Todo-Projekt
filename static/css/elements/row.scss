@@ -6,6 +6,11 @@
   flex-wrap: wrap;
   &--task--new{
     text-align: center;
+    .new_task_input{
+      padding: 0.5rem;
+      border: 1px #FFF solid;
+      border-radius: 4rem;
+    }
   }
 
   &:last-of-type{margin-bottom:0;}
