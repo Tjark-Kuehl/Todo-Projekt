@@ -3,7 +3,9 @@
   margin-bottom: $margin-content-items;
   box-sizing: border-box;
   padding: $row-padding-y $row-padding-x;
-  &--task-new{text-align: center;}
+  &--task-new{
+    text-align: center;
+  }
 
   &:last-of-type{margin-bottom:0;}
   .task-headline{
