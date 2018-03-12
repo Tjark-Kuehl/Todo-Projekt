@@ -1,3 +1,32 @@
 footer{
   background: $footer-color;
+  height: 4rem;
+  display: flex;
+  color: $footer-font-color;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 5%;
+
+  ul{
+    display: flex;
+    justify-content: space-between;
+    box-sizing: border-box;
+    li{
+      position: relative;
+      margin-left: 1rem;
+      &::before{
+        display: block;
+        width:0.1rem;
+        height: 100%;
+        position: absolute;
+        content:"";
+        background: #FFF;
+        left: -0.5rem;
+      }
+      &:first-child{
+        &::before{display: none;}
+        margin-left: 0;
+      }
+    }
+  }
 }
