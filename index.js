@@ -1,8 +1,8 @@
 import http from 'http'
 import path from 'path'
-import { Router } from './framework/router'
-import { Request } from './framework/request'
-import { mkDir, unlinkDir } from './lib/server/extensions'
+import { Router } from './framework/classes/router'
+import { Request } from './framework/classes/request'
+import { mkDir, unlinkDir } from './lib/extensions'
 import globCfg from './config/global'
 
 // Clears outputPath

@@ -3,12 +3,12 @@ import fs from 'fs'
 import path from 'path'
 import crypto from 'crypto'
 import { gzipSync } from 'zlib'
-import pathCfg from '../config/paths'
-import globCfg from '../config/global'
+import pathCfg from '../../config/paths'
+import globCfg from '../../config/global'
 
 import sass from 'node-sass'
 import { minify as HTMLminify } from 'html-minifier'
-import htmlminify_options from '../config/html-minify'
+import htmlminify_options from '../../config/html-minify'
 import { compressSync as brotliSync } from 'iltorb'
 
 export class Router {

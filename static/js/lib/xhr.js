@@ -1,6 +1,4 @@
-import globCfg from '../../config/global'
-
-export function call(ep, json) {
+function call(ep, json) {
     return new Promise((res, rej) => {
         const xhr = new XMLHttpRequest()
         xhr.responseType = 'json'
@@ -13,7 +11,7 @@ export function call(ep, json) {
         xhr.onabort = () => {
             return rej({ error: { status: 500, msg: 'Internal Server Error' } })
         }
-        xhr.open('POST', `http://${window.location.hostname}:${globCfg.port}${ep}`, true)
+        xhr.open('POST', `http://${window.location.hostname}:3000${ep}`, true)
         xhr.setRequestHeader('Content-Type', 'application/json')
         xhr.send(JSON.stringify(json))
     })

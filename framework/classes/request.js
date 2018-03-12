@@ -1,5 +1,6 @@
 export class Request {
     constructor(req) {
+        this.request = req
         this.headers = req.headers
         this.rawURL = req.url
         this.pathURL = ''
@@ -10,6 +11,7 @@ export class Request {
 
     _init() {
         this._parseURL()
+        this._parsePost()
     }
 
     get(val) {
@@ -47,6 +49,18 @@ export class Request {
         let rgx = /[?|&]([\w_äÄöÖüÜß]+)=([^&\s]+)/g
         while (match = rgx.exec(query)) {
             this.getParams[match[1]] = match[2]
+        }
+    }
+
+    /***
+     * Parses post parameters into an object
+     * @private
+     */
+    _parsePost() {
+        if (this.request.method === 'POST') {
+            this.request.on('data', function (data) {
+                this.postParams = data.toString()
+            })
         }
     }
 }
