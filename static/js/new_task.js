@@ -9,17 +9,41 @@ window.addEventListener("load",function(){
 
         if (newtask.style.display === 'none'){
 
-            let saveButton = document.createElement("button");
-            saveButton.classList.add("btn");
-            saveButton.classList.add("btn-save");
-            saveButton.innerText = "Erstellen";
+            let wrapperFirstinputs = document.createElement("div");
+            wrapperFirstinputs.classList.add("from-wrapper");
+            wrapperFirstinputs.classList.add("firstinputs");
 
-            let inputNewTask = document.createElement("input");
-            inputNewTask.classList.add("new_task_input");
-            inputNewTask.placeholder = "Gib einen neuen Task ein!";
 
-            rowTaskNew.appendChild(inputNewTask);
-            rowTaskNew.appendChild(saveButton);
+            let taskSaveButton = document.createElement("button");
+            taskSaveButton.classList.add("btn");
+            taskSaveButton.classList.add("btn-save");
+            taskSaveButton.innerText = "Erstellen";
+
+            let inputNewTaskHeadline = document.createElement("input");
+            inputNewTaskHeadline.classList.add("new_task_headline");
+            inputNewTaskHeadline.placeholder = "Gib einen neuen Task ein!";
+
+
+            let wrapperSecondinputs = document.createElement("div");
+            wrapperSecondinputs.classList.add("from-wrapper");
+            wrapperSecondinputs.classList.add("secondinputs");
+
+            let inputNewTaskDeadline = document.createElement("input");
+            inputNewTaskDeadline.classList.add("new_task_deadline");
+            inputNewTaskDeadline.placeholder = "Bis wann muss der Task erledigt sein?";
+
+            let deadlineSaveButton = document.createElement("button");
+            deadlineSaveButton.classList.add("btn");
+            deadlineSaveButton.classList.add("btn-save");
+            deadlineSaveButton.innerText = "Erstellen";
+
+            rowTaskNew.appendChild(wrapperFirstinputs);
+                wrapperFirstinputs.appendChild(inputNewTaskHeadline);
+                wrapperFirstinputs.appendChild(taskSaveButton);
+
+            rowTaskNew.appendChild(wrapperSecondinputs);
+                wrapperSecondinputs.appendChild(inputNewTaskDeadline);
+                wrapperSecondinputs.appendChild(deadlineSaveButton);
         }
     }, false);
 
