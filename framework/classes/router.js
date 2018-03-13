@@ -9,7 +9,7 @@ import globCfg from '../../config/global'
 import sass from 'node-sass'
 import { minify as HTMLminify } from 'html-minifier'
 import htmlminify_options from '../../config/html-minify'
-import { compressSync as brotliSync } from 'iltorb'
+//import { compressSync as brotliSync } from 'iltorb'
 
 export class Router {
     constructor(ctx) {
@@ -120,10 +120,11 @@ export class Router {
             )
 
             // Create brotli out of data
+            /*
             fs.writeFileSync(
                 path.join(this.ctxPath, globCfg.outputPath, fileName + '.br'),
                 brotliSync(buffer)
-            )
+            )*/
 
             return {
                 ...viewObject,
