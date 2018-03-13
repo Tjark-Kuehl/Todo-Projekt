@@ -6,6 +6,7 @@ window.addEventListener("load",function(){
 
     newtask.addEventListener("click",function(){
         newtask.style.display = "none";
+        let xy = "<h1>hallo</h1>"
 
         if (newtask.style.display === 'none'){
 
@@ -30,7 +31,7 @@ window.addEventListener("load",function(){
 
             let inputNewTaskDeadline = document.createElement("input");
             inputNewTaskDeadline.classList.add("new_task_deadline");
-            inputNewTaskDeadline.placeholder = "Bis wann muss der Task erledigt sein?";
+            inputNewTaskDeadline.placeholder = "Bis wann muss das fertig?";
 
             let deadlineSaveButton = document.createElement("button");
             deadlineSaveButton.classList.add("btn");
@@ -44,6 +45,7 @@ window.addEventListener("load",function(){
             rowTaskNew.appendChild(wrapperSecondinputs);
                 wrapperSecondinputs.appendChild(inputNewTaskDeadline);
                 wrapperSecondinputs.appendChild(deadlineSaveButton);
+
         }
     }, false);
 

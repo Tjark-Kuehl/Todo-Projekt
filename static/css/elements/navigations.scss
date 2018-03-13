@@ -12,7 +12,7 @@
   .triggered{
     display: flex;
     flex-direction: column;
-    position: absolute;
+    position: fixed;
     top:0;
     left: 0;
     height: 100%;
@@ -30,7 +30,7 @@
       background-size: 70%;
       background-position: center center;
       position: absolute;
-      left: 1rem;
+      right: 1rem;
       top: 1rem;
       background-image: url("x.svg");
 
@@ -71,7 +71,7 @@
   .header--nav{
     .triggered{
       &::before{
-        left: 29.7rem;
+        right: 20%;
       }
       li{
         width: 1000px;
