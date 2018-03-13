@@ -38,6 +38,15 @@ window.addEventListener("load",function(){
             deadlineSaveButton.classList.add("btn-save");
             deadlineSaveButton.innerText = "Erstellen";
 
+            let wrapperlastinputs = document.createElement("div");
+            wrapperlastinputs.classList.add("from-wrapper");
+            wrapperlastinputs.classList.add("lastinputs");
+
+            let optionForComment = document.createElement("button");
+            optionForComment.classList.add("btn");
+            optionForComment.classList.add("btn-save");
+            optionForComment.innerText = "Notiz hinzufügen";
+
             rowTaskNew.appendChild(wrapperFirstinputs);
                 wrapperFirstinputs.appendChild(inputNewTaskHeadline);
                 wrapperFirstinputs.appendChild(taskSaveButton);
@@ -45,6 +54,10 @@ window.addEventListener("load",function(){
             rowTaskNew.appendChild(wrapperSecondinputs);
                 wrapperSecondinputs.appendChild(inputNewTaskDeadline);
                 wrapperSecondinputs.appendChild(deadlineSaveButton);
+
+            rowTaskNew.appendChild(wrapperlastinputs);
+            wrapperlastinputs.appendChild(optionForComment);
+
 
         }
     }, false);
