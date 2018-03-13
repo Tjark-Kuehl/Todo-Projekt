@@ -1,32 +1,21 @@
-footer{
+footer {
   background: $footer-color;
-  height: 4rem;
   display: flex;
   color: $footer-font-color;
-  align-items: center;
   justify-content: space-between;
-  padding: 0 $theme-with-padding;
 
-  ul{
+  ul {
     display: flex;
     justify-content: space-between;
+    align-items: center;
     box-sizing: border-box;
-    li{
-      position: relative;
-      margin-left: 1rem;
-      &::before{
-        display: block;
-        width:0.1rem;
-        height: 100%;
-        position: absolute;
-        content:"";
-        background: #FFF;
-        left: -0.5rem;
-      }
-      &:first-child{
-        &::before{display: none;}
-        margin-left: 0;
-      }
+    padding: 1rem;
+    li {
+      display: inline-block;
+      margin: 0 .25rem;
     }
+  }
+  span {
+    padding: 1rem;
   }
 }

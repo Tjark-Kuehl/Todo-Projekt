@@ -1,15 +1,14 @@
 header {
   background: $header-color;
   box-sizing: border-box;
-  padding: $theme-height-padding $theme-with-padding;
   display: flex;
   justify-content: space-between;
-  .header{
-      &--nav--main{
-          &::before{background-image: url("menu_bars.svg")}
-        }
-      &--nav--profil{
-          &::before{background-image: url("profile.svg")}
-       }
-      }
+  .header {
+    &--nav--main {
+      &::before {background-image: url("menu_bars.svg")}
+    }
+    &--nav--profil {
+      &::before {background-image: url("profile.svg")}
+    }
+  }
 }

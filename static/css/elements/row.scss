@@ -1,12 +1,16 @@
-.row{
-  background: $task-background;
-  margin-bottom: $margin-content-items;
+.row {
+  display: flex;
+  background-color: white;
   box-sizing: border-box;
-  padding: $row-padding-y $row-padding-x;
   flex-wrap: wrap;
-  &--task--new{
+  border-bottom: 1px solid rgba(0, 0, 0, .25);
+  height: 4rem;
+  padding: 0 1rem;
+  align-items: center;
+  &--task--new {
+    justify-content: center;
     text-align: center;
-    .new_task_input{
+    .new_task_input {
       padding: 0.5rem;
       border: 1px #FFF solid;
       border-radius: 4rem;
@@ -21,23 +25,25 @@
     .lastinputs{padding-bottom: 0;}
   }
 
-  &:last-of-type{margin-bottom:0;}
-  .task--headline{
+  &:last-of-type {margin-bottom: 0;}
+  .task--headline {
     font-size: $task-headline-size;
     text-align: center;
     color: $task-headline-color
   }
 }
-.row--task{
+
+.row--task {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  p {display: inline-block;
+    margin-bottom: 0;
+  }
+  .info-done {
     display: flex;
-    justify-content: space-between;
-    align-items: center;
-    p{display: inline-block;
-      margin-bottom: 0;
-    }
-    .info-done{
-      display: flex;
-      justify-content: center;
-      align-content: center;
-    }
+    justify-content: center;
+    align-content: center;
+    color: rgba(0, 0, 0, 0.75);
+  }
 }

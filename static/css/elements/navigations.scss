@@ -1,15 +1,17 @@
-.header--nav{
-  ul{display: none;}
-  &::before{
+.header--nav {
+  cursor: pointer;
+  padding: 1rem;
+  ul {display: none;}
+  &::before {
     display: block;
-    width: 2rem;
-    height: 2rem;
+    width: 1.5rem;
+    height: 1.5rem;
     content: "";
+    background-size: 100%;
     background-repeat: no-repeat;
-    background-size: 70%;
-    background-position: center center;
+    background-position: center;
   }
-  .triggered{
+  .triggered {
     display: flex;
     flex-direction: column;
     position: fixed;
@@ -21,21 +23,20 @@
     background: rgba(25, 22, 22, 0.92);
     color: #FFF;
     z-index: 100;
-    &::before{
+    &::before {
       content: "";
-      width: 2rem;
-      height: 2rem;
+      width: 1.5rem;
+      height: 1.5rem;
       display: block;
       background-repeat: no-repeat;
-      background-size: 70%;
+      background-size: 100%;
       background-position: center center;
+      background-image: url("x.svg");
       position: absolute;
       right: 1rem;
       top: 1rem;
-      background-image: url("x.svg");
-
     }
-    li{
+    li {
       height: 5rem;
       margin: 0 auto;
       position: relative;
@@ -44,18 +45,19 @@
       display: flex;
       justify-content: center;
       align-items: center;
-      &:first-child{margin-top: 4rem;}
-      a{
+      &:first-child {margin-top: 4rem;}
+      a {
         display: flex;
         justify-content: center;
         align-items: center;
         width: 100%;
-        height:100%;
-        &:hover{
-          background: #8c8c8c;
+        height: 100%;
+        user-select: none;
+        &:hover {
+          background: #8C8C8C;
         }
       }
-      &::before{
+      &::before {
         display: block;
         width: 100%;
         height: 1px;
@@ -73,7 +75,7 @@
       &::before{
         right: 20%;
       }
-      li{
+      li {
         width: 1000px;
       }
     }
