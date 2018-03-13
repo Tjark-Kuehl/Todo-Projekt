@@ -15,21 +15,26 @@
       border: 1px #FFF solid;
       border-radius: 4rem;
     }
-    .from-wrapper{
+    .from-wrapper {
       box-sizing: border-box;
       width: 100%;
       padding: 1rem;
-      input{width: 70%;}
+      input {width: 70%;}
     }
-    .firstinputs{padding-top: 0;}
-    .lastinputs{padding-bottom: 0;}
+    .firstinputs {padding-top: 0;}
+    .lastinputs {padding-bottom: 0;}
   }
 
   &:last-of-type {margin-bottom: 0;}
   .task--headline {
+    display: flex;
+    align-items: center;
     font-size: $task-headline-size;
     text-align: center;
-    color: $task-headline-color
+    color: $task-headline-color;
+    .task_number {
+      margin-left: 1rem;
+    }
   }
 }
 
