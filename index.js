@@ -1,37 +1,40 @@
-import http from "http";
-import path from "path";
-import { Router } from "./framework/classes/router";
-import { Request } from "./framework/classes/request";
-import { mkDir, unlinkDir } from "./lib/extensions";
-import globCfg from "./config/global";
+import http from 'http'
+import path from 'path'
+import { Router } from './framework/classes/router'
+import { Request } from './framework/classes/request'
+import { mkDir, unlinkDir } from './lib/extensions'
+import globCfg from './config/global'
 
 // Clears outputPath
-unlinkDir(path.relative(__dirname, globCfg.outputPath));
+unlinkDir(path.relative(__dirname, globCfg.outputPath))
 
 // Create project directorys
-mkDir(path.relative(__dirname, globCfg.viewPath));
-mkDir(path.relative(__dirname, globCfg.cssPath));
-mkDir(path.relative(__dirname, globCfg.jsPath));
-mkDir(path.relative(__dirname, globCfg.outputPath));
+mkDir(path.relative(__dirname, globCfg.viewPath))
+mkDir(path.relative(__dirname, globCfg.cssPath))
+mkDir(path.relative(__dirname, globCfg.jsPath))
+mkDir(path.relative(__dirname, globCfg.outputPath))
 
-const router = new Router(__dirname);
+const router = new Router(__dirname)
 
 http
     .createServer(async (req, res) => {
         /* HTTP Header */
-        res.writeHead(200, { "Content-Type": "text/html" });
+        res.writeHead(200, { 'Content-Type': 'text/html' })
 
-        const request = new Request(req);
-
-        let content = "";
-
-        if (!Request.filter(request.pathURL)) {
-            content = await router.getView(request.pathURL);
+        const request = new Request(req)
+        if (!await request.accept()) {
+            return req.connection.destroy()
         }
 
-        res.write(content);
-        res.end();
+        let content = ''
+
+        if (!Request.filter(request.pathURL)) {
+            content = await router.getView(request.pathURL)
+        }
+
+        res.write(content)
+        res.end()
     })
     .listen(globCfg.port, () => {
-        console.log("server start at port 3000");
-    });
+        console.log(`Server is listening on :: ${globCfg.port}`)
+    })

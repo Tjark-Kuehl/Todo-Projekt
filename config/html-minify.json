@@ -1,8 +1,8 @@
 {
-  "collapseInlineTagWhitespace": true,
-  "collapseWhitespace": true,
-  "minifyCSS": true,
-  "minifyJS": true,
-  "minifyURLs": true,
-  "decodeEntities": true
+    "collapseInlineTagWhitespace": true,
+    "collapseWhitespace": true,
+    "minifyCSS": true,
+    "minifyJS": true,
+    "minifyURLs": true,
+    "decodeEntities": true
 }
