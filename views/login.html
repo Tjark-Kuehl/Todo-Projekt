@@ -1,0 +1,43 @@
+<section class="wrapper">
+    <header>
+        <nav class="header--nav header--nav--main">
+            <ul>
+                <li><a>Gruppen</a></li>
+                <li><a>Verlauf</a></li>
+                <li><a>Statistiken</a></li>
+            </ul>
+        </nav>
+        <h1>Login</h1>
+        <nav class="header--nav header--nav--profil">
+            <ul>
+                <li><a>Profil</a></li>
+                <li><a>Bearbeiten</a></li>
+                <li><a>Login</a></li>
+            </ul>
+        </nav>
+    </header>
+    <section class="content">
+        <h2>Gibt deine Logindaten ein.</h2>
+    <form action="post">
+        <label>E-Mail:</label>
+        <input type="email" name="email" placeholder="E-Mail">
+        <label>Passwort:</label>
+        <input type="password" name="password" placeholder="Passwort">
+    </form>
+    </section>
+    <footer>
+        <span>&copy;</span>
+        <ul>
+            <li>Bennet Russnak</li>
+            <li>|</li>
+            <li>Tjark Kühl</li>
+            <li>|</li>
+            <li>Rami Gomaa</li>
+        </ul>
+    </footer>
+</section>
+{{ style | main.scss }}
+{{ script | lib/xhr.js }}
+{{ script | index.js }}
+{{ script | animation.js }}
+{{ script | new_task.js }}
