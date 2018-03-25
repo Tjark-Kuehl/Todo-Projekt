@@ -1,7 +1,7 @@
 import http from 'http'
 import path from 'path'
-import { Router } from './framework/router'
-import { Request } from './framework/request'
+import { Router } from './framework/classes/router'
+import { Request } from './framework/classes/request'
 import { mkDir, unlinkDir } from './lib/extensions'
 import globCfg from './config/global'
 
@@ -16,21 +16,25 @@ mkDir(path.relative(__dirname, globCfg.outputPath))
 
 const router = new Router(__dirname)
 
-http.createServer(async (req, res) => {
-    /* HTTP Header */
-    res.writeHead(200, { 'Content-Type': 'text/html' })
+http
+    .createServer(async (req, res) => {
+        /* HTTP Header */
+        res.writeHead(200, { 'Content-Type': 'text/html' })
 
-    const request = new Request(req)
+        const request = new Request(req)
+        if (!await request.accept()) {
+            return req.connection.destroy()
+        }
 
-    let content = ''
+        let content = ''
 
-    if (!Request.filter(request.pathURL)) {
-        content = await router.getView(request.pathURL)
-    }
+        if (!Request.filter(request.pathURL)) {
+            content = await router.getView(request.pathURL)
+        }
 
-    res.write(content)
-    res.end()
-})
-    .listen(3000, () => {
-        console.log('server start at port 3000')
+        res.write(content)
+        res.end()
+    })
+    .listen(globCfg.port, () => {
+        console.log(`Server is listening on :: ${globCfg.port}`)
     })

@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <h1>Hello World</h1>
 <span class="blue">Blue text</span>
 <span class="green">Green text</span>
@@ -26,3 +27,58 @@
 {{ style | main.scss }}
 {{ script | test.js }}
 {{ script | todo-detail.js }}
+=======
+<section class="wrapper">
+    <header>
+        <nav class="header--nav header--nav--main">
+            <ul>
+                <li><a>Gruppen</a></li>
+                <li><a>Verlauf</a></li>
+                <li><a>Statistiken</a></li>
+            </ul>
+        </nav>
+        <h1>Deine To-Do Liste</h1>
+        <nav class="header--nav header--nav--profil">
+            <ul>
+                <li><a>Profil</a></li>
+                <li><a>Bearbeiten</a></li>
+                <li><a>Login</a></li>
+            </ul>
+        </nav>
+    </header>
+    <section class="content">
+        <div class="row row--task--new">
+            <button class="btn btn--new_task">Neuer Task</button>
+        </div>
+        <div class="row row--task">
+            <span class="task--headline">
+                <div class="wrapper--checkbox">
+                    <input type="checkbox" class="checkbox todo-checkbox" placeholder="checkbox"/>
+                </div>
+                <span class="task_number">1</span>.&nbsp;
+                <span class="task_name">Einkaufen</span>
+            </span>
+            <span class="row--item">
+                <p class="info-done">
+                    <span class="deadline_date">25.05.2018</span>
+                </p>
+            </span>
+        </div>
+    </section>
+    <footer>
+        <span>&copy;</span>
+        <ul>
+            <li>Bennet Russnak</li>
+            <li>|</li>
+            <li>Tjark Kühl</li>
+            <li>|</li>
+            <li>Rami Gomaa</li>
+        </ul>
+    </footer>
+</section>
+{{ style | main.scss }}
+{{ script | lib/xhr.js }}
+{{ script | index.js }}
+{{ script | animation.js }}
+{{ script | new_task.js }}
+>>>>>>> master

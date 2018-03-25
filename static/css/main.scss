@@ -1,24 +1,10 @@
-h1 {
-  color: red
-}
-
-.green {
-  color: green
-}
-
-.blue {
-  color: blue
-}
-
-ul.ul {
-  background-color: black;
-
-  &:hover {
-    background-color: pink;
-  }
-  li.li {
-    font-weight: bold;
-    font-size: 100px;
-  }
-
-}
+@import "css-reset";
+@import "variables";
+@import "typo";
+@import "elements/main-layout";
+@import "elements/header";
+@import "elements/navigations";
+@import "elements/footer";
+@import "elements/row";
+@import "elements/button";
+@import "elements/checkbox";

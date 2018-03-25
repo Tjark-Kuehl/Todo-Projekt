@@ -1,0 +1,9 @@
+{
+  "user": "USERNAME",
+  "database": "DATABASE",
+  "password": "PASSWORD",
+  "host": "HOST_ADDRESS",
+  "port": 1234,
+  "max": 10,
+  "idleTimeoutMillis": 100000
+}

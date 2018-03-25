@@ -1,0 +1,14 @@
+header {
+  background: $header-color;
+  box-sizing: border-box;
+  display: flex;
+  justify-content: space-between;
+  .header {
+    &--nav--main {
+      &::before {background-image: url("menu_bars.svg")}
+    }
+    &--nav--profil {
+      &::before {background-image: url("profile.svg")}
+    }
+  }
+}
