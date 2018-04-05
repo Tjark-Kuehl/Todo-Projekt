@@ -6,12 +6,12 @@ export class Request {
         this.pathURL = ''
         this.getParams = {}
         this.postParams = {}
-        this._init()
+        this.validRequest = true
     }
 
-    _init() {
+    async accept() {
         this._parseURL()
-        this._parsePost()
+        return await this._parsePost()
     }
 
     get(val) {
@@ -32,7 +32,7 @@ export class Request {
     _parseURL() {
         let match = undefined
         let rgx = /(\/[^?]*)(.*)/
-        if (match = rgx.exec(this.rawURL)) {
+        if ((match = rgx.exec(this.rawURL))) {
             this.pathURL = match[1]
             if (!match[2]) {
                 this._parseGet(match[2])
@@ -47,7 +47,7 @@ export class Request {
     _parseGet(query) {
         let match = undefined
         let rgx = /[?|&]([\w_äÄöÖüÜß]+)=([^&\s]+)/g
-        while (match = rgx.exec(query)) {
+        while ((match = rgx.exec(query))) {
             this.getParams[match[1]] = match[2]
         }
     }
@@ -57,10 +57,38 @@ export class Request {
      * @private
      */
     _parsePost() {
-        if (this.request.method === 'POST') {
-            this.request.on('data', function (data) {
-                this.postParams = data.toString()
-            })
-        }
+        return new Promise((resolve, reject) => {
+            if (this.request.method === 'POST') {
+                let body = ''
+                this.request.on('data', function(data) {
+                    body += data
+                    if (body.length > 1e6) {
+                        return resolve(false)
+                    }
+                })
+                this.request.on('end', function() {
+                    if (body.length > 0) {
+                        if (
+                            this.headers['content-type'] === 'application/json'
+                        ) {
+                            this.postParams = JSON.parse(body)
+                        } else if (
+                            this.headers['content-type'] ===
+                            'application/x-www-form-urlencoded'
+                        ) {
+                            body = body.split('&')
+                            this.postParams = {}
+                            for (let i = 0; i < body.length; i++) {
+                                let data = body[i].split('=')
+                                this.postParams[data[0]] = data[1]
+                            }
+                        } else {
+                            return resolve(false)
+                        }
+                    }
+                    return resolve(true)
+                })
+            }
+        })
     }
 }

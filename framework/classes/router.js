@@ -21,15 +21,16 @@ export class Router {
     _init() {
         const template = this._initTemplate()
         if (template) {
-            this._readView()
-                .forEach(entry => {
-                    const compileRes = this._compileView(entry, template)
-                    if (compileRes) {
-                        this.addView(compileRes)
-                    } else {
-                        console.error(`Error: template compilation failed on '${entry.src}'`)
-                    }
-                })
+            this._readView().forEach(entry => {
+                const compileRes = this._compileView(entry, template)
+                if (compileRes) {
+                    this.addView(compileRes)
+                } else {
+                    console.error(
+                        `Error: template compilation failed on '${entry.src}'`
+                    )
+                }
+            })
         } else {
             throw 'Error: main template could not be initialized!'
         }
@@ -56,26 +57,56 @@ export class Router {
      */
     _compileView(viewObject, template) {
         let fileName = ''
-        let data = fs.readFileSync(path.join(this.ctxPath, globCfg.viewPath, viewObject['src']), 'utf8')
+        let data = fs.readFileSync(
+            path.join(this.ctxPath, globCfg.viewPath, viewObject['src']),
+            'utf8'
+        )
         if (data) {
             let matched = ''
             /* Get all files to import (templating syntax) */
-            while (matched = /{{[\s]*([^|\s]+)[\s]*[|]?[\s]*([^\s]*)[\s]*}}/.exec(data)) {
+            while (
+                (matched = /{{[\s]*([^|\s]+)[\s]*[|]?[\s]*([^\s]*)[\s]*}}/.exec(
+                    data
+                ))
+            ) {
                 switch (matched[1]) {
                     /* CSS Stylesheet */
                     case 'style': {
                         let style_data = '<style>'
 
-                        style_data += sass.renderSync({
-                            data: fs.readFileSync(path.join(this.ctxPath, globCfg.cssPath, matched[2]), 'utf8'),
-                            includePaths: [globCfg.cssPath]
-                        }).css.toString()
+                        style_data += sass
+                            .renderSync({
+                                data: fs.readFileSync(
+                                    path.join(
+                                        this.ctxPath,
+                                        globCfg.cssPath,
+                                        matched[2]
+                                    ),
+                                    'utf8'
+                                ),
+                                includePaths: [globCfg.cssPath]
+                            })
+                            .css.toString()
 
                         let matched2 = ''
-                        while (matched2 = /url\(['"]?(.+\.svg)['"]?\)/.exec(style_data)) {
-                            let data = fs.readFileSync(path.join(this.ctxPath, globCfg.imgPath, matched2[1]))
-                                         .toString('base64')
-                            style_data = style_data.replace(matched2[1], `data:image/svg+xml;base64,${data}`)
+                        while (
+                            (matched2 = /url\(['"]?(.+\.svg)['"]?\)/.exec(
+                                style_data
+                            ))
+                        ) {
+                            let data = fs
+                                .readFileSync(
+                                    path.join(
+                                        this.ctxPath,
+                                        globCfg.imgPath,
+                                        matched2[1]
+                                    )
+                                )
+                                .toString('base64')
+                            style_data = style_data.replace(
+                                matched2[1],
+                                `data:image/svg+xml;base64,${data}`
+                            )
                         }
 
                         style_data += '</style>'
@@ -85,7 +116,10 @@ export class Router {
                     /* Javascript */
                     case 'script': {
                         let script_data = '<script>'
-                        script_data += fs.readFileSync(path.join(this.ctxPath, globCfg.jsPath, matched[2]), 'utf8')
+                        script_data += fs.readFileSync(
+                            path.join(this.ctxPath, globCfg.jsPath, matched[2]),
+                            'utf8'
+                        )
                         script_data += '</script>'
                         data = data.replace(matched[0], script_data)
                         break
@@ -98,9 +132,11 @@ export class Router {
 
             // Load main template and passes the whole HTML to it
             let resData = template.replace(/{{*\sbody\s*}}/, data)
-            fileName = crypto.createHmac('sha1', globCfg.secretKey)
-                             .update(resData)
-                             .digest('hex') + '.html'
+            fileName =
+                crypto
+                    .createHmac('sha1', globCfg.secretKey)
+                    .update(resData)
+                    .digest('hex') + '.html'
 
             resData = HTMLminify(resData, htmlminify_options)
 
@@ -131,7 +167,9 @@ export class Router {
                 compiledFile: fileName
             }
         } else {
-            console.error(`View compile error at '${viewObject['src']}', file is empty`)
+            console.error(
+                `View compile error at '${viewObject['src']}', file is empty`
+            )
             for (let i = 0; i < this.views.length; i++) {
                 if (viewObject['src'] === this.views[i]['src']) {
                     this.views.splice(i, 1)
@@ -159,7 +197,9 @@ export class Router {
                 }
                 entrys.push(file)
             } else {
-                console.error(`Error: View file for '${file['requestURL']}' not found!`)
+                console.error(
+                    `Error: View file for '${file['requestURL']}' not found!`
+                )
                 return
             }
         }
@@ -186,9 +226,15 @@ export class Router {
         return new Promise((resolve, reject) => {
             let resPath = ''
             if (this.views[reqPath]) {
-                resPath = path.join(globCfg['outputPath'], this.views[reqPath].compiledFile)
+                resPath = path.join(
+                    globCfg['outputPath'],
+                    this.views[reqPath].compiledFile
+                )
             } else {
-                resPath = path.join(globCfg['outputPath'], this.views[globCfg['fileNotFound']].compiledFile)
+                resPath = path.join(
+                    globCfg['outputPath'],
+                    this.views[globCfg['fileNotFound']].compiledFile
+                )
             }
             if (!resPath) {
                 return reject('No resource given!')
