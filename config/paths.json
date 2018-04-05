@@ -16,14 +16,11 @@
         "requestURL": "/user/profile",
         "src": "user/profile.html",
         "loginRequired": true
-<<<<<<< HEAD
     },
     {
         "type": "view",
         "requestURL": "/login",
         "src": "login.html",
         "loginRequired": false
-=======
->>>>>>> master
     }
 ]
