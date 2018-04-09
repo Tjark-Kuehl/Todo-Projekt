@@ -9,9 +9,6 @@
         "update": "npm prune && npm-check -u"
     },
     "nodemonConfig": {
-        "ignore": [
-            "out/"
-        ],
         "delay": "50",
         "watch": [
             "*.*"
