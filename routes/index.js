@@ -12,4 +12,11 @@ router.get('/', (req, res) => {
     return true
 })
 
+router.post('/test', (req, res) => {
+    res.json({
+        test: "abc"
+    })
+    return true
+})
+
 export default router

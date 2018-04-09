@@ -167,6 +167,13 @@ export function router(options = {}) {
         })('')
 
     return async (req, res) => {
+        // Send plain text to the client
+        res.send = (text) => {
+            res.writeHead(200, { 'Content-Type': 'text/plain' });
+            return res.end(text);
+        }
+
+        // Send rendered html to the client
         res.render = (template, ctx, layout = options.defaultLayout) => {
             if (
                 _layouts.hasOwnProperty(layout) &&
@@ -185,6 +192,12 @@ export function router(options = {}) {
 
             res.writeHead(400, { 'Content-Type': 'text/plain' })
             return res.end('bad request')
+        }
+
+        // Send json object to client
+        res.json = (jsObject) => {
+            res.writeHead(200, { 'Content-Type': 'application/json' });
+            return res.end(JSON.stringify(jsObject));
         }
 
         let r = /^(\/.*)\/$/.exec(req.url.pathname)
