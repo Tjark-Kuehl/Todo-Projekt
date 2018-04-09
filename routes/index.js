@@ -2,8 +2,13 @@ import { Router } from '../framework'
 
 const router = new Router()
 
-router.get('/', (req, res) => {
+router.get('/login', (req, res) => {
     res.render('login')
+    return true
+})
+
+router.get('/', (req, res) => {
+    res.render('index')
     return true
 })
 
