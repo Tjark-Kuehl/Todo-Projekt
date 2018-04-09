@@ -39,6 +39,11 @@ function processViewData(data, options) {
     /* Get all files to import (templating syntax) */
     while (matched = /{{[\s]*([^|\s]+)[\s]*[|]?[\s]*([^\s]*)[\s]*}}/.exec(data)) {
         switch (matched[1]) {
+            /* HTML Components */
+            case 'component': {
+                data = data.replace(matched[0], fs.readFileSync(path.join(options.componentPath, matched[2])))
+                break
+            }
             /* CSS Stylesheet */
             case 'style': {
                 let style_data = '<style>'
@@ -103,6 +108,9 @@ export function router(options = {}) {
     options.imgPath =
         options.imgPath ||
         path.join(path.dirname(module.parent.filename), 'static', 'img')
+    options.componentPath =
+        options.componentPath ||
+        path.join(path.dirname(module.parent.filename), 'components')
     options.defaultLayout = options.defaultLayout || 'default'
 
     const routers = []
