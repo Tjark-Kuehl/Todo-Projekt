@@ -18,7 +18,14 @@
       box-sizing: border-box;
       width: 100%;
       padding: 1rem;
-      input {width: 70%;}
+      input {
+        box-sizing: border-box;
+        width: 70%;
+        height: 33px;
+        border: 1px solid #7777ef;
+        border-radius: 19px;
+        padding: 16px;
+        margin: 0;}
     }
     .firstinputs {padding-top: 0;}
     .lastinputs {padding-bottom: 0;}
