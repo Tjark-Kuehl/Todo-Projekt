@@ -1,8 +1,27 @@
 {
-    "collapseInlineTagWhitespace": true,
-    "collapseWhitespace": true,
-    "minifyCSS": true,
-    "minifyJS": true,
+    "useShortDoctype": true,
+    "sortClassName": true,
+    "sortAttributes": true,
+    "removeTagWhitespace": true,
+    "removeStyleLinkTypeAttributes": true,
+    "removeScriptTypeAttributes": true,
+    "removeRedundantAttributes": true,
+    "removeComments": true,
+    "removeAttributeQuotes": true,
+    "quoteCharacter": "'",
+    "preserveLineBreaks": true,
     "minifyURLs": true,
-    "decodeEntities": true
+    "minifyJS": {
+        "ecma": 6,
+        "compress": {
+            "passes": 2
+        },
+        "safari10": true
+    },
+    "minifyCSS": true,
+    "decodeEntities": true,
+    "collapseWhitespace": true,
+    "conservativeCollapse": true,
+    "collapseInlineTagWhitespace": true,
+    "removeOptionalTags": false
 }

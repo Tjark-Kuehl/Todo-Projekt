@@ -4,15 +4,14 @@
         <h2>Gibt deine Logindaten ein.</h2>
     <form action="post">
         <label>E-Mail:</label>
-        <input type="email" name="email" placeholder="E-Mail">
+        <input id="login-email" type="email" name="email" placeholder="E-Mail">
         <label>Passwort:</label>
-        <input type="password" name="password" placeholder="Passwort">
+        <input id="login-password" type="password" name="password" placeholder="Passwort">
+        <input id="login-button" type="button" value="login">
     </form>
     </section>
     {{ component | footer.html }}
 </section>
 {{ style | main.scss }}
-{{ script | lib/xhr.js }}
-{{ script | index.js }}
-{{ script | animation.js }}
-{{ script | new_task.js }}
+{{ script | lib/xor_encode.js }}
+{{ script | login.js }}
