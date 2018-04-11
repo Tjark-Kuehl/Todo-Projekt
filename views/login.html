@@ -12,17 +12,22 @@
             <ul>
                 <li><a>Profil</a></li>
                 <li><a>Bearbeiten</a></li>
-                <li><a>Login</a></li>
+                <li><a href="/login.html">Login</a></li>
             </ul>
         </nav>
     </header>
-    <section class="content">
-        <h2>Gibt deine Logindaten ein.</h2>
-    <form action="post">
-        <label>E-Mail:</label>
-        <input type="email" name="email" placeholder="E-Mail">
-        <label>Passwort:</label>
-        <input type="password" name="password" placeholder="Passwort">
+    <section class="content Login-wrapper">
+    <form class="Login" action="/" method="post">
+      <h2 class="Login-headline">Gib deine Logindaten ein:</h2>
+      <div class="Login-inputWrapper">
+        <label class="Login-label">E-Mail:</label>
+        <input type="email"  class="Login-input" name="email" placeholder="E-Mail Adresse">
+      </div>
+      <div class="Login-inputWrapper">
+        <label class="Login-label">Passwort:</label>
+        <input type="password" class="Login-input" name="password" placeholder="&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;">
+      </div>
+      <button type="submit" class="Login-button">Login</button>
     </form>
     </section>
     <footer>
