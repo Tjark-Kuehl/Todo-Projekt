@@ -6,8 +6,8 @@ import zlib from 'zlib'
 import { Router } from './classes/router'
 export * from './classes/router'
 
-import cfg from '../config/global'
-import includes from '../config/includes'
+import cfg from '../config/global.config'
+import includes from '../config/includes.config'
 import url from 'url'
 
 /**
@@ -34,7 +34,7 @@ const _use = []
 
 import sass from 'node-sass'
 import { minify } from 'html-minifier'
-import htmlminify_options from '../config/html-minify'
+import htmlminify_options from '../config/html-minify.config'
 
 function processViewData(data, options) {
     let matched = ''
@@ -292,6 +292,7 @@ export function mwStatic(p) {
                     return res.end()
                 }
                 res.writeHead(200, { 'Content-Type': 'text/plain' })
+                console.log(data)
                 res.end(data)
             }
         )
