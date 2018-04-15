@@ -276,14 +276,32 @@ export function router(options = {}) {
 }
 
 export function mwStatic(p) {
-    let regex = new RegExp(`^(/favicon.ico)|(${p}/.*)$`)
+    const regex = new RegExp(`^(/favicon.ico)|(${p}/.*)$`)
+    const mimes = {
+        default: 'text/html',
+        '.css': 'text/css',
+        '.png': 'image/png',
+        '.jpg': 'image/jpg',
+        '.jpeg': 'image/jpg',
+        '.js': 'text/javascript',
+        '.json': 'application/json',
+        '.ico': 'image/x-icon'
+    }
     return (req, res) => {
+        if (req.method !== 'GET' && req.method !== 'HEAD') {
+            res.writeHead(405, {
+                Allow: 'GET, HEAD',
+                'Content-Length': '0'
+            })
+            res.end()
+            return true
+        }
+
         if (!regex.exec(req.url.pathname)) {
             return false
         }
         fs.readFile(
             path.join(__dirname, '..', req.url.pathname),
-            'utf8',
             (err, data) => {
                 if (err) {
                     req.connection.destroy()
@@ -291,8 +309,14 @@ export function mwStatic(p) {
                 if (!data) {
                     return res.end()
                 }
-                res.writeHead(200, { 'Content-Type': 'text/plain' })
-                console.log(data)
+
+                let ext = path.extname(req.url.pathname)
+                /*let magic =
+                    data[0] | (data[1] << 8) | (data[2] << 16) | (data[3] << 24)
+                console.log(magic)*/
+                res.writeHead(200, {
+                    'Content-Type': mimes[ext] || mimes['default']
+                })
                 res.end(data)
             }
         )

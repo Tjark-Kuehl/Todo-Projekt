@@ -18,7 +18,6 @@ create the following files with at least these attributes
 
 ```json
 {
-    "secretKey": "KEEPITSECRET",
     "port": 3000
 }
 ```
