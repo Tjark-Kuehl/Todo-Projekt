@@ -1,33 +1,5 @@
 <section class="wrapper">
-<<<<<<< HEAD
     {{ component | header.html }}
-    <section class="content">
-        <h2>Gibt deine Logindaten ein.</h2>
-    <form action="post">
-        <label>E-Mail:</label>
-        <input id="login-email" type="email" name="email" placeholder="E-Mail">
-        <label>Passwort:</label>
-        <input id="login-password" type="password" name="password" placeholder="Passwort">
-        <input id="login-button" type="button" value="login">
-=======
-    <header>
-        <nav class="header--nav header--nav--main">
-            <ul>
-                <li><a>Gruppen</a></li>
-                <li><a>Verlauf</a></li>
-                <li><a>Statistiken</a></li>
-            </ul>
-        </nav>
-        <h1>Login</h1>
-        <nav class="header--nav header--nav--profil">
-            <ul>
-                <li><a>Profil</a></li>
-                <li><a>Bearbeiten</a></li>
-                <li><a href="/login">Login</a></li>
-                <li><a href="/register">Anmeldung</a></li>
-            </ul>
-        </nav>
-    </header>
     <section class="content Login-wrapper">
     <form class="Login" action="/" method="post">
       <h2 class="Login-headline">Gib deine Logindaten ein:</h2>
@@ -40,18 +12,12 @@
         <input type="password" class="Login-input" name="password" placeholder="&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;">
       </div>
       <button type="submit" class="Login-button">Login</button>
->>>>>>> e69d5c81072ea35b7392f61ccc5055e541d69903
     </form>
     </section>
     {{ component | footer.html }}
 </section>
 {{ style | main.scss }}
-<<<<<<< HEAD
-{{ script | lib/xor_encode.js }}
-{{ script | login.js }}
-=======
 {{ script | lib/xhr.js }}
 {{ script | index.js }}
 {{ script | animation.js }}
 {{ script | new_task.js }}
->>>>>>> e69d5c81072ea35b7392f61ccc5055e541d69903
