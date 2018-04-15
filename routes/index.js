@@ -1,5 +1,6 @@
 import { Router } from '../framework'
-import { signUserLoginTokens } from '../lib/auth'
+import { signUserLoginTokens, tryRegisterUser } from '../lib/auth'
+import { JE400, REGISTRATION_FAILED } from '../lib/error'
 
 const router = new Router()
 
@@ -7,6 +8,7 @@ router.get('/login', (req, res) => {
     res.render('login')
     return true
 })
+
 router.get('/register', (req, res) => {
     res.render('register')
     return true
@@ -17,42 +19,49 @@ router.get('/', (req, res) => {
     return true
 })
 
-let loginObject = [
-    {
-        email: 'test@test.de',
-        password: '1234'
+router.post('/register', async (req, res) => {
+    let post = req.postParams
+    /* Catch bad request */
+    if (!post) {
+        res.json(JE400)
+        return true
     }
-]
+
+    /* Try register user with email and password */
+    const registered = await tryRegisterUser(post.email, post.password)
+    console.log('TEST', registered)
+    /* If registered succeeded or not */
+    if (registered) {
+        res.json({ email: post.email })
+    } else {
+        res.json(REGISTRATION_FAILED)
+    }
+    return true
+})
+
 router.post('/login', async (req, res) => {
     let post = req.postParams
     /* Catch bad request */
     if (!post) {
-        return false
+        res.json(JE400)
+        return true
     }
 
-    /* Check if data is available */
-    let login = false
-    loginObject.forEach(entry => {
-        if (entry.email === post.email && entry.password === post.password) {
-            login = true
-        }
-    })
+    /* Try login user with email and password */
+    const login = await tryRegisterUser(post.email, post.password)
 
     /* If login succeeded or not */
     if (login) {
         const [newToken, newRefreshToken] = await signUserLoginTokens(
-            post.email,
-            post.password
+            login.email,
+            login.password
         )
         res.json({
             token: newToken,
-            refreshToken: newRefreshToken,
-            success: true
+            refreshToken: newRefreshToken
         })
     } else {
-        res.json({
-            success: false
-        })
+        res.json(JE400)
     }
     return true
 })

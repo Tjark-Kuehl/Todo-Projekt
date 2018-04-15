@@ -1,7 +1,7 @@
 <section class="wrapper">
     {{ component | header.html }}
     <section class="content Login-wrapper">
-    <form class="Login" action="/" method="post">
+    <div class="Login">
       <h2 class="Login-headline">Gib deine Logindaten ein:</h2>
       <div class="Login-inputWrapper">
         <label class="Login-label">E-Mail:</label>
@@ -11,13 +11,10 @@
         <label class="Login-label">Passwort:</label>
         <input type="password" class="Login-input" name="password" placeholder="&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;">
       </div>
-      <button type="submit" class="Login-button">Login</button>
-    </form>
+      <button id="login-button" type="submit" class="Login-button">Login</button>
+    </div>
     </section>
     {{ component | footer.html }}
 </section>
 {{ style | main.scss }}
-{{ script | lib/xhr.js }}
-{{ script | index.js }}
-{{ script | animation.js }}
-{{ script | new_task.js }}
+{{ script | login.js }}
