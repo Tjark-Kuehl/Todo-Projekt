@@ -1,0 +1,50 @@
+<section class="wrapper">
+    <header>
+        <nav class="header--nav header--nav--main">
+            <ul>
+                <li><a>Gruppen</a></li>
+                <li><a>Verlauf</a></li>
+                <li><a>Statistiken</a></li>
+            </ul>
+        </nav>
+        <h1>Anmeldung</h1>
+        <nav class="header--nav header--nav--profil">
+            <ul>
+                <li><a>Profil</a></li>
+                <li><a>Bearbeiten</a></li>
+                <li><a href="/login">Login</a></li>
+                <li><a>Anmeldung</a></li>
+            </ul>
+        </nav>
+    </header>
+    <section class="content Register-wrapper">
+    <form class="Register" action="/" method="post">
+      <h2 class="Register-headline">Registrierung:</h2>
+      <div class="Register-inputWrapper">
+        <input type="text"  class="Register-input" name="unsername" placeholder="Username">
+        <input type="email"  class="Register-input" name="email" placeholder="E-Mail Adresse">
+      </div>
+      <div class="Register-inputWrapper">
+        <input type="password" class="Register-input" name="password" placeholder="Passwort">
+        <input type="password" class="Register-input" name="password" placeholder="Passwort erneut eingeben">
+      </div>
+      <button type="submit" class="Register-button">Account erstellen :)</button>
+      <label class="Register-label">Haben Sie bereits einen Account? <a href="/login" class="Register-labelLink">Login</label>
+    </form>
+    </section>
+    <footer>
+        <span>&copy;</span>
+        <ul>
+            <li>Bennet Russnak</li>
+            <li>|</li>
+            <li>Tjark Kühl</li>
+            <li>|</li>
+            <li>Rami Gomaa</li>
+        </ul>
+    </footer>
+</section>
+{{ style | main.scss }}
+{{ script | lib/xhr.js }}
+{{ script | index.js }}
+{{ script | animation.js }}
+{{ script | new_task.js }}
