@@ -1,8 +1,8 @@
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', () => {
     let newtask = document.querySelector('.btn--new_task')
     let rowTaskNew = document.querySelector('.row--task--new')
 
-    newtask.addEventListener('click', function() {
+    newtask.addEventListener('click', () => {
         newtask.style.display = 'none'
 
         if (newtask.style.display === 'none') {

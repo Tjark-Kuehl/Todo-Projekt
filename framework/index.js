@@ -5,7 +5,7 @@ import zlib from 'zlib'
 import url from 'url'
 
 import uglify from 'uglify-es'
-import * as babel from 'babel-core'
+import { transform } from 'babel-core'
 import sass from 'node-sass'
 import { minify } from 'html-minifier'
 
@@ -20,9 +20,10 @@ import babelClient_options from '../config/babel-client.config.json'
 const uglify_options = htmlminify_options.minifyJS
 htmlminify_options.minifyJS = text => {
     return uglify.minify(
-        babel
-            .transform(text, babelClient_options)
-            .code.replace(/['"]use strict['"];/g, ''),
+        transform(text, babelClient_options).code.replace(
+            /['"]use strict['"];/g,
+            ''
+        ),
         uglify_options
     ).code
 }
