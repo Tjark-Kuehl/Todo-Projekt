@@ -1,41 +1,4 @@
 .row {
-<<<<<<< HEAD
-  display: flex;
-  background-color: white;
-  box-sizing: border-box;
-  flex-wrap: wrap;
-  border-bottom: 1px solid rgba(0, 0, 0, .25);
-  padding: 1rem;
-  align-items: center;
-  &--task--new {
-    justify-content: center;
-    text-align: center;
-    .new_task_input {
-      padding: 0.5rem;
-      border: 1px #FFF solid;
-      border-radius: 4rem;
-    }
-    .from-wrapper {
-      box-sizing: border-box;
-      width: 100%;
-      padding: 1rem;
-      input {
-        box-sizing: border-box;
-        width: 70%;
-        height: 33px;
-        border: 1px solid #7777ef;
-        border-radius: 19px;
-        padding: 16px;
-        margin: 0;}
-    }
-    .firstinputs {padding-top: 0;}
-    .lastinputs {padding-bottom: 0;}
-  }
-
-  &:last-of-type {margin-bottom: 0;}
-  .task--headline {
-=======
->>>>>>> e43043d22d876aace40d25d21a74e246ee45bb46
     display: flex;
     background-color: white;
     box-sizing: border-box;
