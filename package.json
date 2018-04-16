@@ -10,7 +10,9 @@
     },
     "nodemonConfig": {
         "delay": "50",
-        "watch": ["*.*"],
+        "watch": [
+            "*.*"
+        ],
         "ext": "js html scss sass json svg png jpg jpeg"
     },
     "devDependencies": {
@@ -21,12 +23,21 @@
         "babel-core": "^6.26.0",
         "babel-plugin-transform-object-rest-spread": "^6.26.0",
         "babel-preset-env": "^1.6.1",
+        "cookie": "^0.3.1",
+        "cookie-signature": "^1.1.0",
         "html-minifier": "^3.5.13",
         "jsonwebtoken": "^8.2.1",
         "node-sass": "^4.8.3",
-        "pg": "^7.4.1"
+        "pg": "^7.4.1",
+        "uglify-es": "^3.3.9"
     },
-    "keywords": ["schule", "projekt", "todo", "node", "javascript"],
+    "keywords": [
+        "schule",
+        "projekt",
+        "todo",
+        "node",
+        "javascript"
+    ],
     "author": "Bennet Russnak, Rami Gomaa, Tjark Kühl",
     "license": "ISC"
 }

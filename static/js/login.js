@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', function() {
     /* Redirect when user is authenticated */
-    if (authenticated) {
+    if (authenticated()) {
         setLocation('index')
     }
 
