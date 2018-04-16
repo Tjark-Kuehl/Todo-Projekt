@@ -7,7 +7,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         if (newtask.style.display === 'none') {
             let wrapperFirstinputs = document.createElement('div')
-            wrapperFirstinputs.classList.add('from-wrapper')
+            wrapperFirstinputs.classList.add('form-wrapper')
             wrapperFirstinputs.classList.add('firstinputs')
 
             let taskSaveButton = document.createElement('button')
@@ -20,7 +20,7 @@ document.addEventListener('DOMContentLoaded', () => {
             inputNewTaskHeadline.placeholder = 'Erstelle eine neue Gruppe!'
 
             let wrapperSecondinputs = document.createElement('div')
-            wrapperSecondinputs.classList.add('from-wrapper')
+            wrapperSecondinputs.classList.add('form-wrapper')
             wrapperSecondinputs.classList.add('secondinputs')
 
             rowTaskNew.appendChild(wrapperFirstinputs)

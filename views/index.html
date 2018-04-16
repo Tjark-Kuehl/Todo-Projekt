@@ -2,7 +2,13 @@
     {{ component | header.html }}
     <section class="content">
         <div class="row row--task--new">
-            <button class="btn btn--new_task">Neue Gruppe</button>
+            <!-- New Group Shown -->
+            <button id="newGroup-button" class="btn btn--new_task">Neue Gruppe</button>
+            <!-- New Group Hidden -->
+            <div class="form-wrapper firstinputs" style="display: hidden">
+                <input id="newGroup-name-input" class="new_task_headline" placeholder="Erstelle eine neue Gruppe!">
+                <button id="newGroup-submit-button" class="btn btn-save">Erstellen</button>
+            </div>
         </div>
         <div class="row row--task">
             <span class="task--headline">
