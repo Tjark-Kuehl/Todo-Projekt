@@ -1,6 +1,10 @@
 import { Router } from '../framework'
-import { signUserLoginTokens, tryRegisterUser, tryLoginUser } from '../lib/auth'
-import { JE400, REGISTRATION_FAILED } from '../lib/error'
+import {
+    signUserLoginTokens,
+    tryRegisterUser,
+    tryLoginUser
+} from '../lib/routes/auth'
+import { JE400, REGISTRATION_FAILED, LOGIN_FAILED } from '../lib/error'
 
 const router = new Router()
 
@@ -54,17 +58,26 @@ router.post('/login', async (req, res) => {
     /* If login succeeded or not */
     if (login) {
         console.log('[LOGIN]: ', post.email)
-        const [newToken, newRefreshToken] = await signUserLoginTokens(
-            login.email,
-            login.password
-        )
+        req.jwt.sign({ email: login.email }, false, login.password)
         res.json({
-            token: newToken,
-            refreshToken: newRefreshToken
+            email: login.email
         })
     } else {
-        res.json(JE400)
+        res.json(LOGIN_FAILED)
     }
+    return true
+})
+
+router.post('/create-group', async (req, res) => {
+    let post = req.postParams
+    /* Catch bad request */
+    if (!post) {
+        res.json(JE400)
+        return true
+    }
+
+    const newGroup = await createNewTodoGroup(post.name)
+
     return true
 })
 

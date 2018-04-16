@@ -1,15 +1,8 @@
 console.log('Authenticated: ' + authenticated())
 function authenticated() {
-    let token = localStorage.getItem('token')
-    let refreshToken = localStorage.getItem('refreshToken')
-
-    const date = new Date()
-    if (parseJwt(token) && parseJwt(refreshToken).exp > date) {
-        return true
-    }
-    localStorage.removeItem('token')
-    localStorage.removeItem('refreshToken')
-    return false
+    const cookie = document.cookie.split('=', 2)[1]
+    const parsed = parseJwt(cookie)
+    return Boolean(parsed && parsed.exp > new Date().getTime() / 1000)
 }
 
 function parseJwt(token) {
@@ -21,4 +14,8 @@ function parseJwt(token) {
         }
     }
     return false
+}
+
+function removeCookie(name) {
+    document.cookie = name + '=;expires=Thu, 01 Jan 1970 00:00:01 GMT;'
 }

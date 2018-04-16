@@ -1,4 +1,9 @@
 document.addEventListener('DOMContentLoaded', function() {
+    /* Redirect when user is authenticated */
+    if (authenticated) {
+        setLocation('index')
+    }
+
     /* Send XHR request on button click */
     document
         .querySelector('#login-button')
@@ -9,9 +14,7 @@ document.addEventListener('DOMContentLoaded', function() {
             }).then(res => {
                 if (!res.error) {
                     console.log(res)
-                    localStorage.setItem('token', res.token)
-                    localStorage.setItem('refreshToken', res.refreshToken)
-                    //setLocation('index')
+                    setLocation('index')
                 }
             })
         })

@@ -1,4 +1,9 @@
 document.addEventListener('DOMContentLoaded', function() {
+    /* Redirect when user is authenticated */
+    if (authenticated) {
+        setLocation('index')
+    }
+
     /* Send XHR request on button click */
     document
         .querySelector('#register-button')
@@ -18,7 +23,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 password
             }).then(res => {
                 if (!res.error) {
-                    console.log('Registered', res)
+                    setLocation('index')
                 }
             })
         })
