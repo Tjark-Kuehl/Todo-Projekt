@@ -23,6 +23,12 @@
     background: rgba(25, 22, 22, 0.92);
     color: #FFF;
     z-index: 100;
+    a{
+      text-decoration: none;
+      &:visited{color: #FFF}
+      &:active{color: #FFF}
+
+    }
     &::before {
       content: "";
       width: 1.5rem;
