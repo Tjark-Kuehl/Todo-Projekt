@@ -1,5 +1,5 @@
 import { Router } from '../framework'
-import { signUserLoginTokens, tryRegisterUser } from '../lib/auth'
+import { signUserLoginTokens, tryRegisterUser, tryLoginUser } from '../lib/auth'
 import { JE400, REGISTRATION_FAILED } from '../lib/error'
 
 const router = new Router()
@@ -29,9 +29,10 @@ router.post('/register', async (req, res) => {
 
     /* Try register user with email and password */
     const registered = await tryRegisterUser(post.email, post.password)
-    console.log('TEST', registered)
+
     /* If registered succeeded or not */
     if (registered) {
+        console.log('[REGISTERED]: ', post.email)
         res.json({ email: post.email })
     } else {
         res.json(REGISTRATION_FAILED)
@@ -48,10 +49,11 @@ router.post('/login', async (req, res) => {
     }
 
     /* Try login user with email and password */
-    const login = await tryRegisterUser(post.email, post.password)
+    const login = await tryLoginUser(post.email, post.password)
 
     /* If login succeeded or not */
     if (login) {
+        console.log('[LOGIN]: ', post.email)
         const [newToken, newRefreshToken] = await signUserLoginTokens(
             login.email,
             login.password

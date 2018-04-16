@@ -8,10 +8,10 @@ document.addEventListener('DOMContentLoaded', function() {
                 password: document.querySelector('#login-password').value
             }).then(res => {
                 if (!res.error) {
-                    console.log('Login', res)
+                    console.log(res)
                     localStorage.setItem('token', res.token)
                     localStorage.setItem('refreshToken', res.refreshToken)
-                    setLocation('index')
+                    //setLocation('index')
                 }
             })
         })
