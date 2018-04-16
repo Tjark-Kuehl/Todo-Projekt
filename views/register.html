@@ -1,0 +1,20 @@
+<section class="wrapper">
+    {{ component | header.html }}
+    <section class="content Register-wrapper">
+    <div class="Register">
+      <h2 class="Register-headline">Registrierung:</h2>
+      <div class="Register-inputWrapper">
+        <input id="email-input" type="email" class="Register-input" name="email" placeholder="E-Mail Adresse">
+      </div>
+      <div class="Register-inputWrapper">
+        <input id="password-input" type="password" class="Register-input" name="password" placeholder="Passwort">
+        <input id="password-repeat-input" type="password" class="Register-input" name="password" placeholder="Passwort erneut eingeben">
+      </div>
+      <button id="register-button" type="submit" class="Register-button">Account erstellen :)</button>
+      <label class="Register-label">Haben Sie bereits einen Account? <a href="/login" class="Register-labelLink">Login</label>
+    </div>
+    </section>
+    {{ component | footer.html }}
+</section>
+{{ style | main.scss }}
+{{ script | register.js }}
