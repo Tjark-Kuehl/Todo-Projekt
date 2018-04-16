@@ -2,27 +2,27 @@
 $theme-with-padding: 1rem;
 $theme-height-padding: 1rem;
 /*Themcolor*/
-$background-color: #FFF;
-$header-color: #7777ef;
-$footer-color: #7777ef;
+$background-color: #fff;
+$header-color: #4545da;
+$footer-color: #4545da;
 $task-background: #cfe0e8;
 
 /*font*/
 /*font-color*/
-$task-font-color: #7777ef;
-$deadlinecolor: #FFF;
-$h1-color: #FFF;
-$h2-color: #FFF;
-$h3-color: #FFF;
-$task-headline-color: #7777ef;
-$footer-font-color: #FFF;
-$link-color: #FFF;
+$task-font-color: #4545da;
+$deadlinecolor: #fff;
+$h1-color: #fff;
+$h2-color: #fff;
+$h3-color: #fff;
+$task-headline-color: #4545da;
+$footer-font-color: #fff;
+$link-color: #fff;
 /*font-size*/
 $font-size-main: 16px;
 $h1-size: 1.5rem;
-$h2-size: $h1-size*0.7;
-$h3-size: $h1-size*0.5;
-$task-headline-size: $h1-size*0.7;
+$h2-size: $h1-size * 0.7;
+$h3-size: $h1-size * 0.5;
+$task-headline-size: $h1-size * 0.7;
 $p-margin: 1rem;
 
 /*wrapper*/
@@ -38,7 +38,6 @@ $header-height: 3rem;
 $footer-width: 100%;
 $footer-height: 3rem;
 
-
 /*content*/
 /*content-size*/
 $content-width: 100%;
@@ -48,9 +47,6 @@ $row-padding-x: 1rem;
 
 /*btn*/
 /*btn-color*/
-$btn-color: #7777ef;
+$btn-color: #4545da;
 /*btn-size*/
-$btn-font-size: $h1-size*0.7;
-
-
-
+$btn-font-size: $h1-size * 0.7;

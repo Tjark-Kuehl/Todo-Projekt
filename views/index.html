@@ -1,21 +1,5 @@
 <section class="wrapper">
-    <header>
-        <nav class="header--nav header--nav--main">
-            <ul>
-                <li><a>Gruppen</a></li>
-                <li><a>Verlauf</a></li>
-                <li><a>Statistiken</a></li>
-            </ul>
-        </nav>
-        <h1>Deine To-Do Liste</h1>
-        <nav class="header--nav header--nav--profil">
-            <ul>
-                <li><a>Profil</a></li>
-                <li><a>Bearbeiten</a></li>
-                <li><a>Login</a></li>
-            </ul>
-        </nav>
-    </header>
+    {{ component | header.html }}
     <section class="content">
         <div class="row row--task--new">
             <button class="btn btn--new_task">Neuer Task</button>
@@ -35,17 +19,9 @@
             </span>
         </div>
     </section>
-    <footer>
-        <span>&copy;</span>
-        <ul>
-            <li><a href="https://github.com/Bemmell">Bennet Russnak</a></li>
-            <li><a href="https://github.com/Tjark-Kuehl">Tjark Kühl</a></li>
-            <li><a href="https://github.com/RamiGomaa1">Rami Gomaa</a></li>
-        </ul>
-    </footer>
+    {{ component | footer.html }}
 </section>
 {{ style | main.scss }}
-{{ script | lib/xhr.js }}
 {{ script | index.js }}
 {{ script | animation.js }}
 {{ script | new_task.js }}
