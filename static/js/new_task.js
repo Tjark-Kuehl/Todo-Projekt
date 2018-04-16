@@ -4,7 +4,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     newtask.addEventListener('click', function() {
         newtask.style.display = 'none'
-        let xy = '<h1>hallo</h1>'
+
 
         if (newtask.style.display === 'none') {
             let wrapperFirstinputs = document.createElement('div')
@@ -16,15 +16,15 @@ document.addEventListener('DOMContentLoaded', function() {
             taskSaveButton.classList.add('btn-save')
             taskSaveButton.innerText = 'Erstellen'
 
-            let inputNewTaskHeadline = document.createElement('input')
+           let inputNewTaskHeadline = document.createElement('input')
             inputNewTaskHeadline.classList.add('new_task_headline')
-            inputNewTaskHeadline.placeholder = 'Gib einen neuen Task ein!'
+            inputNewTaskHeadline.placeholder = 'Erstelle eine neue Gruppe!'
 
             let wrapperSecondinputs = document.createElement('div')
             wrapperSecondinputs.classList.add('from-wrapper')
             wrapperSecondinputs.classList.add('secondinputs')
 
-            let inputNewTaskDeadline = document.createElement('input')
+            /*let inputNewTaskDeadline = document.createElement('input')
             inputNewTaskDeadline.classList.add('new_task_deadline')
             inputNewTaskDeadline.placeholder = 'Bis wann muss das fertig?'
 
@@ -40,18 +40,18 @@ document.addEventListener('DOMContentLoaded', function() {
             let optionForComment = document.createElement('button')
             optionForComment.classList.add('btn')
             optionForComment.classList.add('btn-save')
-            optionForComment.innerText = 'Notiz hinzufügen'
+            optionForComment.innerText = 'Notiz hinzufügen'*/
 
             rowTaskNew.appendChild(wrapperFirstinputs)
             wrapperFirstinputs.appendChild(inputNewTaskHeadline)
             wrapperFirstinputs.appendChild(taskSaveButton)
 
-            rowTaskNew.appendChild(wrapperSecondinputs)
+          /*  rowTaskNew.appendChild(wrapperSecondinputs)
             wrapperSecondinputs.appendChild(inputNewTaskDeadline)
             wrapperSecondinputs.appendChild(deadlineSaveButton)
 
             rowTaskNew.appendChild(wrapperlastinputs)
-            wrapperlastinputs.appendChild(optionForComment)
+            wrapperlastinputs.appendChild(optionForComment)*/
         }
     })
 })
