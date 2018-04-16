@@ -1,4 +1,4 @@
-window.addEventListener('load', function() {
+document.addEventListener('DOMContentLoaded', function() {
     let newtask = document.querySelector('.btn--new_task')
     let rowTaskNew = document.querySelector('.row--task--new')
 

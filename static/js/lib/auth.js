@@ -1,4 +1,4 @@
-console.log(authenticated())
+console.log('Authenticated: ' + authenticated())
 function authenticated() {
     let token = localStorage.getItem('token')
     let refreshToken = localStorage.getItem('refreshToken')

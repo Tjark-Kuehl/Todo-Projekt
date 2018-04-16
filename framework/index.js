@@ -209,8 +209,9 @@ export function router(options = {}) {
                 'Content-Type': 'text/plain',
                 'Content-Encoding': 'gzip'
             })
-            let buf = new Buffer(text, 'utf-8')
-            return res.end(zlib.gzipSync(buf))
+            return zlib.gzip(new Buffer(text, 'utf-8'), (error, result) => {
+                return res.end(result)
+            })
         }
 
         // Send rendered html to the client
@@ -229,8 +230,9 @@ export function router(options = {}) {
                     'Content-Encoding': 'gzip'
                 })
 
-                let buf = new Buffer(page, 'utf-8')
-                return res.end(zlib.gzipSync(buf))
+                return zlib.gzip(new Buffer(page, 'utf-8'), (error, result) => {
+                    return res.end(result)
+                })
             }
 
             res.writeHead(400, { 'Content-Type': 'text/plain' })
@@ -240,11 +242,20 @@ export function router(options = {}) {
         // Send json object to client
         res.json = jsObject => {
             res.writeHead(200, {
+                'Access-Control-Allow-Origin': '*',
+                'Access-Control-Allow-Methods':
+                    'GET, POST, OPTIONS, PUT, PATCH, DELETE',
+                'Access-Control-Allow-Headers': 'content-type',
+                'Access-Control-Allow-Credentials': true,
                 'Content-Type': 'application/json',
                 'Content-Encoding': 'gzip'
             })
-            let buf = new Buffer(JSON.stringify(jsObject), 'utf-8')
-            return res.end(zlib.gzipSync(buf))
+            return zlib.gzip(
+                new Buffer(JSON.stringify(jsObject), 'utf-8'),
+                (error, result) => {
+                    return res.end(result)
+                }
+            )
         }
 
         let r = /^(\/.*)\/$/.exec(req.url.pathname)
@@ -289,12 +300,7 @@ export function mwStatic(p) {
     }
     return (req, res) => {
         if (req.method !== 'GET' && req.method !== 'HEAD') {
-            res.writeHead(405, {
-                Allow: 'GET, HEAD',
-                'Content-Length': '0'
-            })
-            res.end()
-            return true
+            return false
         }
 
         if (!regex.exec(req.url.pathname)) {

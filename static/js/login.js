@@ -1,4 +1,4 @@
-window.addEventListener('load', function() {
+document.addEventListener('DOMContentLoaded', function() {
     /* Send XHR request on button click */
     document
         .querySelector('#login-button')
@@ -7,10 +7,11 @@ window.addEventListener('load', function() {
                 email: document.querySelector('#login-email').value,
                 password: document.querySelector('#login-password').value
             }).then(res => {
-                if (res.success) {
+                if (!res.error) {
+                    console.log(res)
                     localStorage.setItem('token', res.token)
                     localStorage.setItem('refreshToken', res.refreshToken)
-                    setLocation('index')
+                    //setLocation('index')
                 }
             })
         })
