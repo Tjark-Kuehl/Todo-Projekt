@@ -26,6 +26,9 @@ document.addEventListener('DOMContentLoaded', () => {
         if (groupName) {
             call(`/create-group`, { groupName }).then(res => {
                 if (!res.error) {
+                    /* Reset input text */
+                    newGroup_name_input.value = ''
+
                     /* Reactivate new group button */
                     newGroup_button.style.display = 'block'
 
