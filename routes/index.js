@@ -1,10 +1,13 @@
 import { Router } from '../framework'
+import { tryRegisterUser, tryLoginUser, authGuard } from '../lib/routes/auth'
 import {
-    signUserLoginTokens,
-    tryRegisterUser,
-    tryLoginUser
-} from '../lib/routes/auth'
-import { JE400, REGISTRATION_FAILED, LOGIN_FAILED } from '../lib/error'
+    JE400,
+    REGISTRATION_FAILED,
+    LOGIN_FAILED,
+    JE1002,
+    JE500
+} from '../lib/error'
+import { createNewTodoGroup } from '../lib/routes/todo'
 
 const router = new Router()
 
@@ -58,7 +61,11 @@ router.post('/login', async (req, res) => {
     /* If login succeeded or not */
     if (login) {
         console.log('[LOGIN]: ', post.email)
-        req.jwt.sign({ email: login.email }, false, login.password)
+        req.jwt.sign(
+            { id: login.id, email: login.email },
+            false,
+            login.password
+        )
         res.json({
             email: login.email
         })
@@ -69,6 +76,12 @@ router.post('/login', async (req, res) => {
 })
 
 router.post('/create-group', async (req, res) => {
+    /* Early return when user is not authenticated */
+    if (!authGuard(req)) {
+        res.json(JE1002)
+        return true
+    }
+
     let post = req.postParams
     /* Catch bad request */
     if (!post) {
@@ -76,7 +89,17 @@ router.post('/create-group', async (req, res) => {
         return true
     }
 
-    const newGroup = await createNewTodoGroup(post.name)
+    const newGroup = await createNewTodoGroup(
+        req.jwt.payload.id,
+        post.groupName
+    )
+
+    /* If group creation succeeded or not */
+    if (newGroup) {
+        res.json(newGroup)
+    } else {
+        res.json(JE500)
+    }
 
     return true
 })
