@@ -1,8 +1,8 @@
 <section class="wrapper">
-    {{ component | header.html }}
     <section class="content Login-wrapper">
     <div class="Login">
-      <h2 class="Login-headline">Gib deine Logindaten ein:</h2>
+      <div class="Logo" onclick="setLocation('index')"></div>
+      <h2 class="Login-headline">Login</h2>
       <div class="Login-inputWrapper">
         <label class="Login-label">E-Mail:</label>
         <input id="login-email" type="email" class="Login-input" name="email" placeholder="E-Mail Adresse">
@@ -14,7 +14,6 @@
       <button id="login-button" type="submit" class="Login-button">Login</button>
     </div>
     </section>
-    {{ component | footer.html }}
 </section>
 {{ style | main.scss }}
 {{ script | login.js }}
