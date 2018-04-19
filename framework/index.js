@@ -8,6 +8,7 @@ import uglify from 'uglify-es'
 import { transform } from 'babel-core'
 import sass from 'node-sass'
 import { minify } from 'html-minifier'
+import html_autoprefixer from 'html-autoprefixer'
 
 import { Router } from './classes/router'
 export * from './classes/router'
@@ -125,7 +126,10 @@ function processViewData(data, options) {
             }
         }
     }
-    return minify(data + '<script>' + js_data + '</script>', htmlminify_options)
+    return minify(
+        html_autoprefixer.process(data) + '<script>' + js_data + '</script>',
+        htmlminify_options
+    )
 }
 
 export function use(arg0) {

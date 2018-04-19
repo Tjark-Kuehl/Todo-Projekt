@@ -4,8 +4,7 @@
     box-sizing: border-box;
     flex-wrap: wrap;
     border-bottom: 1px solid rgba(0, 0, 0, 0.25);
-    /*padding: 1rem;*/
-    padding: 0 0.5rem;
+    padding: 0 1rem;
     align-items: center;
     height: 4rem;
     &--task--new {
@@ -26,6 +25,7 @@
                 border-radius: 19px;
                 padding: 0.5rem;
                 margin: 0;
+                outline: none;
             }
         }
         .firstinputs {

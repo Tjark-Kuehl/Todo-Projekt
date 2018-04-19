@@ -1,25 +1,25 @@
 .wrapper--checkbox {
-  width: 2rem;
-  height: 2rem;
-  border: .05rem solid rgba(0, 0, 0, .5);
-  border-radius: 50%;
-  position: relative;
-  input.checkbox {
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    margin: 0;
-    height: 100%;
-    width: 100%;
-    opacity: 0;
-    cursor: pointer;
-  }
+    width: 2rem;
+    height: 2rem;
+    border: 0.05rem solid rgba(0, 0, 0, 0.5);
+    border-radius: 50%;
+    position: relative;
+    input.checkbox {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        margin: 0;
+        height: 100%;
+        width: 100%;
+        opacity: 0;
+        cursor: pointer;
+    }
 }
 
 .wrapper--checkbox--done {
-  border: .05rem solid transparent;
-  background-image: url('./checked.svg');
-  background-repeat: no-repeat;
+    border: 0.05rem solid transparent;
+    background-image: url('./checked.svg');
+    background-repeat: no-repeat;
 }
