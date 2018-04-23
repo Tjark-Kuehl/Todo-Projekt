@@ -1,57 +1,41 @@
-document.addEventListener('DOMContentLoaded', function() {
-    let newtask = document.querySelector('.btn--new_task')
-    let rowTaskNew = document.querySelector('.row--task--new')
+document.addEventListener('DOMContentLoaded', () => {
+    const newGroup_name_input = document.querySelector('#newGroup-name-input')
+    const newGroup_wrapper = document.querySelector('#newGroup-wrapper')
+    const newGroup_button = document.querySelector('#newGroup-button')
+    const newGroup_submit_button = document.querySelector(
+        '#newGroup-submit-button'
+    )
 
-    newtask.addEventListener('click', function() {
-        newtask.style.display = 'none'
-        let xy = '<h1>hallo</h1>'
+    /* New Group button click */
+    newGroup_button.addEventListener('click', function() {
+        /* Hide self */
+        this.style.display = 'none'
 
-        if (newtask.style.display === 'none') {
-            let wrapperFirstinputs = document.createElement('div')
-            wrapperFirstinputs.classList.add('from-wrapper')
-            wrapperFirstinputs.classList.add('firstinputs')
+        /* Show Group Wrapper */
+        newGroup_wrapper.style.display = 'block'
 
-            let taskSaveButton = document.createElement('button')
-            taskSaveButton.classList.add('btn')
-            taskSaveButton.classList.add('btn-save')
-            taskSaveButton.innerText = 'Erstellen'
+        /* Step into input box */
+        newGroup_name_input.focus()
+    })
 
-            let inputNewTaskHeadline = document.createElement('input')
-            inputNewTaskHeadline.classList.add('new_task_headline')
-            inputNewTaskHeadline.placeholder = 'Gib einen neuen Task ein!'
+    /* Submit new Group */
+    newGroup_submit_button.addEventListener('click', function() {
+        const groupName = newGroup_name_input.value
 
-            let wrapperSecondinputs = document.createElement('div')
-            wrapperSecondinputs.classList.add('from-wrapper')
-            wrapperSecondinputs.classList.add('secondinputs')
+        /* Check if group name is valid */
+        if (groupName) {
+            call(`/create-group`, { groupName }).then(res => {
+                if (!res.error) {
+                    /* Reset input text */
+                    newGroup_name_input.value = ''
 
-            let inputNewTaskDeadline = document.createElement('input')
-            inputNewTaskDeadline.classList.add('new_task_deadline')
-            inputNewTaskDeadline.placeholder = 'Bis wann muss das fertig?'
+                    /* Reactivate new group button */
+                    newGroup_button.style.display = 'block'
 
-            let deadlineSaveButton = document.createElement('button')
-            deadlineSaveButton.classList.add('btn')
-            deadlineSaveButton.classList.add('btn-save')
-            deadlineSaveButton.innerText = 'Erstellen'
-
-            let wrapperlastinputs = document.createElement('div')
-            wrapperlastinputs.classList.add('from-wrapper')
-            wrapperlastinputs.classList.add('lastinputs')
-
-            let optionForComment = document.createElement('button')
-            optionForComment.classList.add('btn')
-            optionForComment.classList.add('btn-save')
-            optionForComment.innerText = 'Notiz hinzufügen'
-
-            rowTaskNew.appendChild(wrapperFirstinputs)
-            wrapperFirstinputs.appendChild(inputNewTaskHeadline)
-            wrapperFirstinputs.appendChild(taskSaveButton)
-
-            rowTaskNew.appendChild(wrapperSecondinputs)
-            wrapperSecondinputs.appendChild(inputNewTaskDeadline)
-            wrapperSecondinputs.appendChild(deadlineSaveButton)
-
-            rowTaskNew.appendChild(wrapperlastinputs)
-            wrapperlastinputs.appendChild(optionForComment)
+                    /* Hide new group input form */
+                    newGroup_wrapper.style.display = 'none'
+                }
+            })
         }
     })
 })

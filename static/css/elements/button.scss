@@ -1,36 +1,37 @@
 .btn {
-  background: none;
-  border: 0;
-  padding: 0;
-  text-align: center;
-  user-select: none;
-  cursor: pointer;
-  &--new_task {
-    color: $btn-color;
-    font-size: $btn-font-size;
-    position: relative;
-    &::before {
-      display: block;
-      width: 1rem;
-      height: 1rem;
-      content: "";
-      background: no-repeat 100% url("plus.svg");
-      position: absolute;
-      left: -1.5rem;
+    background: none;
+    border: 0;
+    padding: 0;
+    text-align: center;
+    user-select: none;
+    cursor: pointer;
+    &--new_task {
+        display: flex;
+        color: $btn-color;
+        font-size: $btn-font-size;
+        position: relative;
+        align-items: center;
+        div.plus-image {
+            display: inline-block;
+            width: 1rem;
+            height: 1rem;
+            content: '';
+            margin-right: 0.25rem;
+            background: no-repeat 100% url('plus.svg');
+        }
     }
-  }
 }
 
 .btn-save {
-  background: #7777EF;
-  border: 1px solid #FFF;
-  padding: 0.5rem;
-  border-radius: 4rem;
-  margin-left: 1rem;
-  color: #FFF;
-  &:hover {
-    background: #FFF;
-    border: 1px solid #7777EF;
-    color: #7777EF;
-  }
+    background: #7777ef;
+    border: 1px solid #fff;
+    padding: 0.5rem;
+    border-radius: 4rem;
+    margin-left: 1rem;
+    color: #fff;
+    &:hover {
+        background: #fff;
+        border: 1px solid #7777ef;
+        color: #7777ef;
+    }
 }

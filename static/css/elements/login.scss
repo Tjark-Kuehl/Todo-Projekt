@@ -1,8 +1,8 @@
-.Register-wrapper {
+.Login-wrapper {
     display: flex;
     align-items: center;
 }
-.Register {
+.Login {
     box-sizing: border-box;
     display: flex;
     flex-direction: column;
@@ -18,7 +18,7 @@
         rgba(49, 41, 155, 1) 100%
     );
     padding: 15px;
-    box-shadow: 0 0 10px 2px rgba(0, 0, 0, 0.5);
+    box-shadow: 0 0 10px 2px rgba(150, 45, 45, 0.5);
     div.Logo {
         display: flex;
         align-self: center;
@@ -32,25 +32,27 @@
         cursor: pointer;
     }
 }
-.Register-headline {
+.Login-headline {
     margin-bottom: 40px;
     font-size: 25px;
 }
-.Register-inputWrapper {
+.Login-inputWrapper {
     box-sizing: border-box;
     margin-bottom: 20px;
 }
-.Register-input {
-    box-sizing: border-box;
+.Login-label {
+    display: block;
+    color: #ffffff;
+    margin-bottom: 5px;
+}
+.Login-input {
     display: block;
     width: 100%;
     box-sizing: border-box;
     padding: 8px;
     border: none;
-    margin-bottom: 5px;
-    border-radius: 8px;
 }
-.Register-button {
+.Login-button {
     display: block;
     margin: 0 auto;
     width: 250px;
@@ -68,14 +70,4 @@
         background-color: #ffffff;
         color: #3965c9;
     }
-}
-.Register-label {
-    color: #ffffff;
-    font-size: 16px;
-    margin-top: 10px;
-    text-align: center;
-}
-.Register-labelLink {
-    margin-left: 4px;
-    color: #ffffff;
 }

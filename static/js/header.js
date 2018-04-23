@@ -1,8 +1,8 @@
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', () => {
     //Navigation left
     let headerNavMain = document.querySelector('.header--nav--main')
     let headerNavMainTriggerd = document.querySelector('.header--nav--main>ul')
-    headerNavMain.addEventListener('click', function() {
+    headerNavMain.addEventListener('click', () => {
         headerNavMainTriggerd.classList.toggle('triggered')
     })
     //Navigation right
@@ -11,7 +11,7 @@ document.addEventListener('DOMContentLoaded', function() {
         '.header--nav--profil>ul'
     )
 
-    headerNavProfil.addEventListener('click', function() {
+    headerNavProfil.addEventListener('click', () => {
         headerNavProfilTriggerd.classList.toggle('triggered')
     })
 })

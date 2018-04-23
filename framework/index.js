@@ -2,13 +2,32 @@ import http from 'http'
 import path from 'path'
 import fs from 'fs'
 import zlib from 'zlib'
+import url from 'url'
+
+import uglify from 'uglify-es'
+import { transform } from 'babel-core'
+import sass from 'node-sass'
+import { minify } from 'html-minifier'
+import html_autoprefixer from 'html-autoprefixer'
 
 import { Router } from './classes/router'
 export * from './classes/router'
 
 import cfg from '../config/global.config'
 import includes from '../config/includes.config'
-import url from 'url'
+import htmlminify_options from '../config/html-minify.config'
+import babelClient_options from '../config/babel-client.config.json'
+
+const uglify_options = htmlminify_options.minifyJS
+htmlminify_options.minifyJS = text => {
+    return uglify.minify(
+        transform(text, babelClient_options).code.replace(
+            /['"]use strict['"];/g,
+            ''
+        ),
+        uglify_options
+    ).code
+}
 
 /**
  * Starts the server
@@ -32,12 +51,18 @@ export function start() {
 
 const _use = []
 
-import sass from 'node-sass'
-import { minify } from 'html-minifier'
-import htmlminify_options from '../config/html-minify.config'
-
 function processViewData(data, options) {
     let matched = ''
+    let js_data = ''
+
+    /* Include globals */
+    includes.forEach(entry => {
+        js_data += fs.readFileSync(
+            path.join(options.jsPath, entry + '.js'),
+            'utf8'
+        )
+    })
+
     /* Get all files to import (templating syntax) */
     while (
         (matched = /{{[\s]*([^|\s]+)[\s]*[|]?[\s]*([^\s]*)[\s]*}}/.exec(data))
@@ -79,7 +104,6 @@ function processViewData(data, options) {
                         `data:image/svg+xml;base64,${data}`
                     )
                 }
-
                 style_data += '</style>'
                 data = data.replace(matched[0], style_data)
                 break
@@ -87,13 +111,11 @@ function processViewData(data, options) {
             /* Javascript */
             case 'script': {
                 if (!includes.includes(matched[2].slice(0, -3))) {
-                    let script_data = '<script>'
-                    script_data += fs.readFileSync(
+                    js_data += fs.readFileSync(
                         path.join(options.jsPath, matched[2]),
                         'utf8'
                     )
-                    script_data += '</script>'
-                    data = data.replace(matched[0], script_data)
+                    data = data.replace(matched[0], '')
                 } else {
                     data = data.replace(matched[0], '')
                 }
@@ -104,16 +126,10 @@ function processViewData(data, options) {
             }
         }
     }
-    /* Include globals */
-    includes.forEach(entry => {
-        data += '<script>'
-        data += fs.readFileSync(
-            path.join(options.jsPath, entry + '.js'),
-            'utf8'
-        )
-        data += '</script>'
-    })
-    return minify(data, htmlminify_options)
+    return minify(
+        html_autoprefixer.process(data) + '<script>' + js_data + '</script>',
+        htmlminify_options
+    )
 }
 
 export function use(arg0) {
