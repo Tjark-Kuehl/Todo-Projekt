@@ -1,6 +1,6 @@
 .row {
     display: flex;
-    background-color:  #f1f1f1;
+    background-color:  $row-backgroundcolor;
     box-sizing: border-box;
     flex-wrap: wrap;
     border-bottom: 1px solid rgba(0, 0, 0, 0.25);
@@ -8,11 +8,11 @@
     align-items: center;
     height: 4rem;
 
-    &--groupe--new {
-        background-color: #FFF;
+    &--group--new {
+        background-color: $background-color;
         justify-content: center;
         text-align: center;
-        .new_groupe_input {
+        .new_group_input {
             padding: 0.5rem;
             border: 1px #fff solid;
             border-radius: 4rem;
@@ -45,7 +45,7 @@
     &:last-of-type {
         margin-bottom: 0;
     }
-    .groupe--headline {
+    .group--headline {
         display: flex;
         align-items: center;
         font-size: $task-headline-size;
@@ -56,11 +56,12 @@
         }
     }
     &:hover{
-      background-color:#ececec;
+      background-color: $row-backgroundcolor-hover;
     }
+    .tasklist{display: none; width: 100%;}
 }
 
-.groupe--task {
+.group--task {
     display: flex;
     justify-content: space-between;
     align-items: center;

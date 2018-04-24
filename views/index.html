@@ -1,25 +1,31 @@
 <section class="wrapper">
     {{ component | header.html }}
     <section class="content">
-        <div class="row row--groupe--new">
+        <div class="row row--group--new">
             <!-- New Group Shown -->
-            <button id="newGroup-button" class="btn btn--new_groupe"><div class="plus-image"></div>Neue&nbsp;Gruppe</button>
+            <button id="newGroup-button" class="btn btn--new_group"><div class="plus-image"></div>Neue&nbsp;Gruppe</button>
             <!-- New Group Hidden -->
             <div id="newGroup-wrapper" class="form-wrapper firstinputs" style="display: none">
-                <input id="newGroup-name-input" class="new_groupe_headline" placeholder="Erstelle eine neue Gruppe!">
+                <input id="newGroup-name-input" class="new_group_headline" placeholder="Erstelle eine neue Gruppe!">
                 <button id="newGroup-submit-button" class="btn btn-save">Erstellen</button>
             </div>
         </div>
-        <div class="row row--groupe">
-            <span class="groupe--headline">
+        <div class="row row--group">
+            <span class="group--headline">
                 <button class="btn btn--accordion"></button>
-                <span class="groupe_name">Familien To-Do</span>
+                <span class="group_name">Familien To-Do</span>
             </span>
-
+            <ul class="tasklist">
+              <li>halloe</li>
+              <li>halloe</li>
+              <li>halloe</li>
+              <li>halloe</li>
+            </ul>
         </div>
     </section>
     {{ component | footer.html }}
 </section>
 {{ style | main.scss }}
 {{ script | index.js }}
+{{ script | group_task-template.js }}
 {{ script | new_task.js }}
