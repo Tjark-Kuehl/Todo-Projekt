@@ -7,10 +7,10 @@
     padding: 0 1rem;
     align-items: center;
     height: 4rem;
-    &--task--new {
+    &--groupe--new {
         justify-content: center;
         text-align: center;
-        .new_task_input {
+        .new_groupe_input {
             padding: 0.5rem;
             border: 1px #fff solid;
             border-radius: 4rem;
@@ -43,7 +43,7 @@
     &:last-of-type {
         margin-bottom: 0;
     }
-    .task--headline {
+    .groupe--headline {
         display: flex;
         align-items: center;
         font-size: $task-headline-size;
@@ -55,7 +55,7 @@
     }
 }
 
-.row--task {
+.groupe--task {
     display: flex;
     justify-content: space-between;
     align-items: center;
