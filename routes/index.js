@@ -40,6 +40,11 @@ router.post('/register', async (req, res) => {
     /* If registered succeeded or not */
     if (registered) {
         console.log('[REGISTERED]: ', post.email)
+        req.jwt.sign(
+            { id: registered.id, email: registered.email },
+            false,
+            registered.password
+        )
         res.json({ email: post.email })
     } else {
         res.json(REGISTRATION_FAILED)
