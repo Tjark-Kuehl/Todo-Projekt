@@ -1,3 +1,8 @@
+/* Route guard */
+if (!authenticated()) {
+    setLocation('login')
+}
+
 document.querySelectorAll('.todo-checkbox').forEach(item => {
     item.addEventListener('change', () => {
         let pi = item.parentNode.classList

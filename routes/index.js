@@ -29,7 +29,7 @@ router.get('/', (req, res) => {
 router.post('/register', async (req, res) => {
     let post = req.postParams
     /* Catch bad request */
-    if (!post) {
+    if (!post || !post.email || !post.password) {
         res.json(JE400)
         return true
     }
@@ -50,7 +50,7 @@ router.post('/register', async (req, res) => {
 router.post('/login', async (req, res) => {
     let post = req.postParams
     /* Catch bad request */
-    if (!post) {
+    if (!post || !post.email || !post.password) {
         res.json(JE400)
         return true
     }

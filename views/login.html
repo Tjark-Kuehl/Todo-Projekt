@@ -1,7 +1,11 @@
 <section class="wrapper">
-    <section class="content Login-wrapper">
+  <section class="content Login-wrapper">
+    <div class="Login-error-wrapper">
+      <div class="Login-error-img"></div>
+      <span id="Login-error-text" class="Login-error-text"></span>
+    </div>
     <div class="Login">
-      <div class="Logo" onclick="setLocation('index')"></div>
+      <div class="Logo"></div>
       <h2 class="Login-headline">Login</h2>
       <div class="Login-inputWrapper">
         <label class="Login-label">E-Mail:</label>
@@ -13,7 +17,6 @@
       </div>
       <button id="login-button" type="submit" class="Login-button">Login</button>
     </div>
-    </section>
+  </section>
 </section>
-{{ style | main.scss }}
-{{ script | login.js }}
+{{ style | main.scss }} {{ script | login.js }}

@@ -1,7 +1,11 @@
 <section class="wrapper">
-    <section class="content Register-wrapper">
+  <section class="content Register-wrapper">
+    <div class="Register-error-wrapper">
+      <div class="Register-error-img"></div>
+      <span id="Register-error-text" class="Register-error-text"></span>
+    </div>
     <div class="Register">
-      <div class="Logo" onclick="setLocation('index')"></div>
+      <div class="Logo"></div>
       <h2 class="Register-headline">Registrierung</h2>
       <div class="Register-inputWrapper">
         <input id="email-input" type="email" class="Register-input" name="email" placeholder="E-Mail Adresse">
@@ -11,9 +15,9 @@
         <input id="password-repeat-input" type="password" class="Register-input" name="password" placeholder="Passwort erneut eingeben">
       </div>
       <button id="register-button" type="submit" class="Register-button">Account erstellen :)</button>
-      <label class="Register-label">Haben Sie bereits einen Account? <a href="/login" class="Register-labelLink">Login</label>
+      <label class="Register-label">Haben Sie bereits einen Account?
+        <a href="/login" class="Register-labelLink">Login</label>
     </div>
-    </section>
+  </section>
 </section>
-{{ style | main.scss }}
-{{ script | register.js }}
+{{ style | main.scss }} {{ script | register.js }}

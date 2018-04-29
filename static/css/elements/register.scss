@@ -1,6 +1,49 @@
 .Register-wrapper {
     display: flex;
+    flex-direction: column;
     align-items: center;
+    justify-content: center;
+    position: relative;
+    .Register-error-wrapper {
+        display: none;
+        position: absolute;
+        width: 350px;
+        max-width: 100%;
+        height: 144px;
+        background-color: #da6060;
+        top: 2.5rem;
+        border: 1px solid #5d0101;
+        align-items: center;
+        padding: 1rem;
+        box-sizing: border-box;
+        /* Animation */
+        opacity: 1;
+        animation-name: fadeInOpacity;
+        animation-iteration-count: 1;
+        animation-timing-function: ease-in;
+        animation-duration: 0.5s;
+        .Register-error-img {
+            width: 4rem;
+            height: 4rem;
+            background: url('x.svg');
+            background-size: 100% 100%;
+        }
+        .Register-error-text {
+            color: white;
+            max-width: 252px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            padding: 1rem;
+        }
+    }
+}
+@keyframes fadeInOpacity {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
 }
 .Register {
     box-sizing: border-box;
@@ -29,7 +72,6 @@
         margin-bottom: 1rem;
         box-shadow: inset 0px 0px 4px 0px;
         border-radius: 50%;
-        cursor: pointer;
     }
 }
 .Register-headline {
