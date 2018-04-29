@@ -22,7 +22,6 @@ document.addEventListener('DOMContentLoaded', () => {
             if (res.error) {
                 Register_drawError(res.error.msg)
             } else {
-                console.log(res)
                 setLocation('index')
             }
         })

@@ -9,7 +9,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const email = document.querySelector('#login-email').value
         const password = document.querySelector('#login-password').value
 
-        if (email && password) {
+        if (!email || !password) {
             Login_drawError('E-Mail und Passwort dürfen nicht leer sein')
             return
         }
@@ -21,7 +21,6 @@ document.addEventListener('DOMContentLoaded', () => {
             if (res.error) {
                 Login_drawError(res.error.msg)
             } else {
-                console.log(res)
                 setLocation('index')
             }
         })
