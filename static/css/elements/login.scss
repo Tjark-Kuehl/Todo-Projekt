@@ -82,11 +82,6 @@
     box-sizing: border-box;
     margin-bottom: 20px;
 }
-.Login-label {
-    display: block;
-    color: #ffffff;
-    margin-bottom: 5px;
-}
 .Login-input {
     display: block;
     width: 100%;
@@ -112,4 +107,13 @@
         background-color: #ffffff;
         color: #3965c9;
     }
+}
+.Login-label {
+    color: #ffffff;
+    margin-top: 10px;
+    text-align: center;
+}
+.Login-labelLink {
+    margin-left: 4px;
+    color: #ffffff;
 }
