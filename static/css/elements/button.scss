@@ -5,20 +5,31 @@
     text-align: center;
     user-select: none;
     cursor: pointer;
-    &--new_task {
+    &--new_group {
         display: flex;
         color: $btn-color;
         font-size: $btn-font-size;
         position: relative;
         align-items: center;
-        div.plus-image {
-            display: inline-block;
+        &::before {
+            content: "";
+            display: block;
+            position: absolute;
             width: 1rem;
-            height: 1rem;
-            content: '';
-            margin-right: 0.25rem;
+            height: 15px;
+            left: -21px;
+            box-sizing: border-box;
+            vertical-align: middle;
             background: no-repeat 100% url('plus.svg');
         }
+    }
+    &--accordion{
+      background: url('dropdown-arrow.svg');
+      background-repeat: no-repeat;
+      width: 1rem;
+      height: 1rem;
+      margin-top: 4px;
+      margin-right: 10px;
     }
 }
 

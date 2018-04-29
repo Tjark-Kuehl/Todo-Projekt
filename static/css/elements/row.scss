@@ -1,16 +1,18 @@
 .row {
     display: flex;
-    background-color: white;
+    background-color:  $row-backgroundcolor;
     box-sizing: border-box;
     flex-wrap: wrap;
     border-bottom: 1px solid rgba(0, 0, 0, 0.25);
     padding: 0 1rem;
     align-items: center;
     height: 4rem;
-    &--task--new {
+
+    &--group--new {
+        background-color: $background-color;
         justify-content: center;
         text-align: center;
-        .new_task_input {
+        .new_group_input {
             padding: 0.5rem;
             border: 1px #fff solid;
             border-radius: 4rem;
@@ -43,7 +45,7 @@
     &:last-of-type {
         margin-bottom: 0;
     }
-    .task--headline {
+    .group--headline {
         display: flex;
         align-items: center;
         font-size: $task-headline-size;
@@ -53,9 +55,13 @@
             margin-left: 1rem;
         }
     }
+    &:hover{
+      background-color: $row-backgroundcolor-hover;
+    }
+    .tasklist{display: none; width: 100%;}
 }
 
-.row--task {
+.group--task {
     display: flex;
     justify-content: space-between;
     align-items: center;

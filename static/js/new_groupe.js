@@ -29,9 +29,11 @@ document.addEventListener('DOMContentLoaded', () => {
                     /* Reset input text */
                     newGroup_name_input.value = ''
 
-                    
+                    /* Reactivate new group button */
+                    newGroup_button.style.display = 'block'
 
-                    console.log(res);
+                    /* Hide new group input form */
+                    newGroup_wrapper.style.display = 'none'
                 }
             })
         }
