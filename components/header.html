@@ -1,18 +1,33 @@
 <header>
     <nav class="header--nav header--nav--main">
         <ul>
-            <li><a>Gruppen</a></li>
-            <li><a>Verlauf</a></li>
-            <li><a>Statistiken</a></li>
+            <li>
+                <a>Gruppen</a>
+            </li>
+            <li>
+                <a>Verlauf</a>
+            </li>
+            <li>
+                <a>Statistiken</a>
+            </li>
         </ul>
     </nav>
     <h1 onclick="setLocation('index')">Todo</h1>
     <nav class="header--nav header--nav--profil">
         <ul>
-            <li><a>Profil</a></li>
-            <li><a>Bearbeiten</a></li>
-            <li><a href="/login">Login</a></li>
-            <li><a href="/register">Registrieren</a></li>
+            <li>
+                <a>Profil</a>
+            </li>
+            <li>
+                <a>Bearbeiten</a>
+            </li>
+            <li>
+                <a href="/login">Login</a>
+            </li>
+            <li>
+                <a href="/register">Registrieren</a>
+            </li>
         </ul>
     </nav>
 </header>
+{{ script | components/header.js }}
