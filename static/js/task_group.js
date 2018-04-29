@@ -1,3 +1,5 @@
+const task_group_template = ''
+
 document.addEventListener('DOMContentLoaded', () => {
     const newGroup_name_input = document.querySelector('#newGroup-name-input')
     const newGroup_wrapper = document.querySelector('#newGroup-wrapper')
@@ -12,7 +14,7 @@ document.addEventListener('DOMContentLoaded', () => {
         this.style.display = 'none'
 
         /* Show Group Wrapper */
-        newGroup_wrapper.style.display = 'block'
+        newGroup_wrapper.style.display = 'flex'
 
         /* Step into input box */
         newGroup_name_input.focus()
@@ -35,6 +37,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     /* Hide new group input form */
                     newGroup_wrapper.style.display = 'none'
                 }
+                console.log(res)
             })
         }
     })

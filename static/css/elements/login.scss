@@ -15,7 +15,6 @@
         border: 1px solid #5d0101;
         align-items: center;
         padding: 1rem;
-        box-sizing: border-box;
         /* Animation */
         opacity: 1;
         animation-name: fadeInOpacity;
@@ -46,7 +45,6 @@
     }
 }
 .Login {
-    box-sizing: border-box;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -79,13 +77,11 @@
     font-size: 25px;
 }
 .Login-inputWrapper {
-    box-sizing: border-box;
     margin-bottom: 20px;
 }
 .Login-input {
     display: block;
     width: 100%;
-    box-sizing: border-box;
     padding: 8px;
     border: none;
 }
