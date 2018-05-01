@@ -6,6 +6,13 @@ document.addEventListener('DOMContentLoaded', () => {
             res.forEach(entry => {
                 createTaskGroup(entry[0].group_name, entry[0].group_id)
             })
+
+            /* Show content when page it is loaded */
+            const loading = document.querySelector('loading')
+            const content = document.querySelector('content')
+
+            loading.style.display = 'none'
+            content.style.display = 'block'
         }
     })
 })
@@ -77,5 +84,5 @@ function createTaskGroup(name, groupid = -1) {
             </div>
             <ul data-groupid="${groupid}" class="todo--list"></ul>
         </div>`
-    document.querySelector('#content').insertAdjacentHTML('beforeEnd', template)
+    document.querySelector('content').insertAdjacentHTML('beforeEnd', template)
 }

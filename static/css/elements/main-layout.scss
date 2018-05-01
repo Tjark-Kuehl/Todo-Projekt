@@ -2,7 +2,11 @@
     display: flex;
     flex-direction: column;
     min-height: 100vh;
-    .content {
+    content {
+        animation: fade 0.4s linear;
+    }
+    content,
+    loading {
         flex: 1;
     }
     footer {
@@ -13,5 +17,35 @@
     .wrapper {
         width: 1000px;
         margin: 0 auto;
+    }
+}
+
+loading:before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 5rem;
+    height: 5rem;
+    margin-top: -2.5rem;
+    margin-left: -2.5rem;
+    border-radius: 50%;
+    border: 0.25rem solid lightgray;
+    border-top-color: $header-color;
+    animation: spinner 0.8s linear infinite;
+}
+
+@keyframes spinner {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes fade {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
     }
 }
