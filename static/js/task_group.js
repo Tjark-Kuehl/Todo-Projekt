@@ -1,3 +1,4 @@
+/* Creating a new Todo-Group */
 document.addEventListener('DOMContentLoaded', () => {
     const newGroup_name_input = document.querySelector('#newGroup-name-input')
     const newGroup_wrapper = document.querySelector('#newGroup-wrapper')
@@ -43,17 +44,28 @@ document.addEventListener('DOMContentLoaded', () => {
     })
 })
 
-function createTaskGroup(name, done = 0, todos = 0) {
+/**
+ * Creates a new todo-group and inserts it into the DOM
+ * @param {string} name The name of the group, that is present in the headline
+ * @param {number} groupid ID of the group that is very important
+ * @param {number} done How many todos in the group are marked as done
+ * @param {number} todos How many todos are in the group total
+ */
+function createTaskGroup(name, groupid = -1, done = 0, todos = 0) {
+    if (groupid === -1) {
+        console.error('Cant create a group with the ID of -1')
+        return
+    }
     const template = `
         <div class="row">
-            <div class="group--headline">
+            <div data-groupid="${groupid}" class="group--headline">
                 <div>
                     <i class="icon--accordion"></i>
                     <span>${name}</span>
                 </div>
                 <span>${done} / ${todos}</span>
             </div>
-            <ul class="todo--list"></ul>
+            <ul data-groupid="${groupid}" class="todo--list"></ul>
         </div>`
     document.querySelector('#content').insertAdjacentHTML('beforeEnd', template)
 }
