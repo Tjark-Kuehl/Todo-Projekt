@@ -1,3 +1,15 @@
+/* Get todos on page load */
+document.addEventListener('DOMContentLoaded', () => {
+    call(`/get-todos`).then(res => {
+        console.log(res)
+        if (!res.error) {
+            res.forEach(entry => {
+                createTaskGroup(entry[0].group_name, entry[0].group_id)
+            })
+        }
+    })
+})
+
 /* Creating a new Todo-Group */
 document.addEventListener('DOMContentLoaded', () => {
     const newGroup_name_input = document.querySelector('#newGroup-name-input')
@@ -37,7 +49,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     newGroup_wrapper.style.display = 'none'
 
                     /* Create TaskGroup element */
-                    createTaskGroup(res.name)
+                    createTaskGroup(res.name, res.id)
                 }
             })
         }
@@ -48,10 +60,8 @@ document.addEventListener('DOMContentLoaded', () => {
  * Creates a new todo-group and inserts it into the DOM
  * @param {string} name The name of the group, that is present in the headline
  * @param {number} groupid ID of the group that is very important
- * @param {number} done How many todos in the group are marked as done
- * @param {number} todos How many todos are in the group total
  */
-function createTaskGroup(name, groupid = -1, done = 0, todos = 0) {
+function createTaskGroup(name, groupid = -1) {
     if (groupid === -1) {
         console.error('Cant create a group with the ID of -1')
         return
@@ -63,7 +73,7 @@ function createTaskGroup(name, groupid = -1, done = 0, todos = 0) {
                     <i class="icon--accordion"></i>
                     <span>${name}</span>
                 </div>
-                <span>${done} / ${todos}</span>
+                <button></button>
             </div>
             <ul data-groupid="${groupid}" class="todo--list"></ul>
         </div>`

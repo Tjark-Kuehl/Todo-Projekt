@@ -22,7 +22,6 @@ footer {
             display: inline-block;
             margin-right: 1rem;
             position: relative;
-
             &:before {
                 content: '';
                 position: absolute;
@@ -31,7 +30,6 @@ footer {
                 background: #fff;
                 left: -10px;
             }
-
             a {
                 text-decoration: none;
                 color: $link-color;

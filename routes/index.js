@@ -5,9 +5,10 @@ import {
     REGISTRATION_FAILED,
     LOGIN_FAILED,
     JE1002,
-    JE500
+    JE500,
+    NO_TODOS
 } from '../lib/error'
-import { createNewTodoGroup } from '../lib/routes/todo'
+import { createNewTodoGroup, getUserTodos } from '../lib/routes/todo'
 
 const router = new Router()
 
@@ -99,11 +100,43 @@ router.post('/create-group', async (req, res) => {
         post.groupName
     )
 
-    /* If group creation succeeded or not */
     if (newGroup) {
         res.json(newGroup)
     } else {
         res.json(JE500)
+    }
+
+    return true
+})
+
+router.post('/get-todos', async (req, res) => {
+    /* Early return when user is not authenticated */
+    if (!authGuard(req)) {
+        res.json(JE1002)
+        return true
+    }
+
+    const todos = await getUserTodos(req.jwt.payload.id)
+
+    if (todos) {
+        let done = []
+        let buildArr = []
+        for (let i = 0; i < todos.length; i++) {
+            /* Break if group array exist */
+            if (done.indexOf(todos[i].group_id) !== -1) continue
+
+            let partArr = []
+            todos.forEach(el => {
+                if (el.group_id === todos[i].group_id) {
+                    partArr.push(el)
+                    done.push(el.group_id)
+                }
+            })
+            buildArr.push(partArr)
+        }
+        res.json(buildArr)
+    } else {
+        res.json(NO_TODOS)
     }
 
     return true
