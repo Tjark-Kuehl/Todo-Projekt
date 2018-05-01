@@ -22,14 +22,6 @@
             background: no-repeat 100% url('plus.svg');
         }
     }
-    &--accordion {
-        background: url('dropdown-arrow.svg');
-        background-repeat: no-repeat;
-        width: 1rem;
-        height: 1rem;
-        margin-right: 1rem;
-        transform: rotate(-90deg);
-    }
 }
 
 .btn-save {

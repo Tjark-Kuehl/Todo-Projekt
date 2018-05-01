@@ -1,5 +1,3 @@
-const task_group_template = ''
-
 document.addEventListener('DOMContentLoaded', () => {
     const newGroup_name_input = document.querySelector('#newGroup-name-input')
     const newGroup_wrapper = document.querySelector('#newGroup-wrapper')
@@ -36,9 +34,26 @@ document.addEventListener('DOMContentLoaded', () => {
 
                     /* Hide new group input form */
                     newGroup_wrapper.style.display = 'none'
+
+                    /* Create TaskGroup element */
+                    createTaskGroup(res.name)
                 }
-                console.log(res)
             })
         }
     })
 })
+
+function createTaskGroup(name, done = 0, todos = 0) {
+    const template = `
+        <div class="row">
+            <div class="group--headline">
+                <div>
+                    <i class="icon--accordion"></i>
+                    <span>${name}</span>
+                </div>
+                <span>${done} / ${todos}</span>
+            </div>
+            <ul class="todo--list"></ul>
+        </div>`
+    document.querySelector('#content').insertAdjacentHTML('beforeEnd', template)
+}

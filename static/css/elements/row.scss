@@ -1,14 +1,91 @@
 .row {
     display: flex;
+    flex-wrap: wrap;
     background-color: $row-backgroundcolor;
-    border-bottom: 1px solid rgba(0, 0, 0, 0.25);
-    padding: 0 1rem;
     align-items: center;
-    height: 4rem;
+    min-height: 4rem;
     cursor: pointer;
+    .group--headline {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        width: 100%;
+        height: 100%;
+        height: 4rem;
+        padding: 0 1rem;
+        border-bottom: 1px solid rgba(0, 0, 0, 0.25);
+        div {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            min-width: 17.5%;
+            .icon--accordion {
+                background: url('dropdown-arrow.svg');
+                background-repeat: no-repeat;
+                width: 1rem;
+                height: 1rem;
+                transform: rotate(-90deg);
+            }
+            span {
+                user-select: none;
+                padding: 0 1.5rem;
+            }
+        }
+    }
+    .todo--list {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        padding-left: 3rem;
+        .todo--item {
+            display: flex;
+            width: 100%;
+            height: 4rem;
+            padding: 0 1rem;
+            align-items: center;
+            justify-content: space-between;
+            cursor: pointer;
+            &:not(:last-of-type) {
+                border-bottom: 1px solid rgba(0, 0, 0, 0.25);
+            }
+            div > span {
+                padding: 0 1.5rem;
+                text-overflow: ellipsis;
+            }
+            div > span,
+            span {
+                overflow: hidden;
+                white-space: nowrap;
+            }
+            div {
+                display: flex;
+                align-items: center;
+                .todo--checked {
+                    border: 1px solid transparent;
+                    background-image: url('checked.svg');
+                    background-repeat: no-repeat;
+                }
+                .checkbox--wrapper {
+                    width: 2.5rem;
+                    height: 2.5rem;
+                    border: 1px solid rgba(0, 0, 0, 0.5);
+                    border-radius: 50%;
+                    input[type='checkbox'] {
+                        margin: 0;
+                        opacity: 0;
+                        width: 100%;
+                        height: 100%;
+                        border-radius: 50%;
+                        cursor: pointer;
+                    }
+                }
+            }
+        }
+    }
 }
 
 .row--group--new {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.25);
     justify-content: center;
     #newGroup-wrapper {
         width: 100%;
