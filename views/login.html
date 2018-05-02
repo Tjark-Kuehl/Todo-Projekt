@@ -1,5 +1,5 @@
 <section class="wrapper">
-  <section class="content Login-wrapper">
+  <content>
     <div class="Login-error-wrapper">
       <div class="Login-error-img"></div>
       <span id="Login-error-text" class="Login-error-text"></span>
@@ -8,17 +8,15 @@
       <div class="Logo"></div>
       <h2 class="Login-headline">Login</h2>
       <div class="Login-inputWrapper">
-        <label class="Login-label">E-Mail:</label>
         <input id="login-email" type="email" class="Login-input" name="email" placeholder="E-Mail Adresse">
       </div>
       <div class="Login-inputWrapper">
-        <label class="Login-label">Passwort:</label>
         <input id="login-password" type="password" class="Login-input" name="password" placeholder="&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;">
       </div>
       <button id="login-button" type="submit" class="Login-button">Login</button>
       <label class="Login-label">Haben Sie noch keinen Account?
         <a href="/register" class="Login-labelLink">Registrierung</label>
     </div>
-  </section>
+  </content>
 </section>
 {{ style | main.scss }} {{ script | views/login.js }}

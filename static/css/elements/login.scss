@@ -1,4 +1,4 @@
-.Login-wrapper {
+content {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -8,8 +8,6 @@
         display: none;
         position: absolute;
         width: 350px;
-        max-width: 100%;
-        height: 144px;
         background-color: #da6060;
         top: 2.5rem;
         border: 1px solid #5d0101;
@@ -49,8 +47,6 @@
     flex-direction: column;
     justify-content: center;
     width: 350px;
-    max-width: 100%;
-    height: 500px;
     margin: 0 auto;
     background: rgb(64, 150, 238);
     background: linear-gradient(

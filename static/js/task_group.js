@@ -1,11 +1,8 @@
 /* Get todos on page load */
 document.addEventListener('DOMContentLoaded', () => {
     call(`/get-todos`).then(res => {
-        console.log(res)
         if (!res.error) {
-            res.forEach(entry => {
-                createTaskGroup(entry[0].group_name, entry[0].group_id)
-            })
+            res.forEach(entry => loadTaskGroup(entry))
 
             /* Show content when page it is loaded */
             const loading = document.querySelector('loading')
@@ -56,7 +53,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     newGroup_wrapper.style.display = 'none'
 
                     /* Create TaskGroup element */
-                    createTaskGroup(res.name, res.id)
+                    //createTaskGroup(res.name, res.id)
                 }
             })
         }
@@ -65,24 +62,60 @@ document.addEventListener('DOMContentLoaded', () => {
 
 /**
  * Creates a new todo-group and inserts it into the DOM
- * @param {string} name The name of the group, that is present in the headline
- * @param {number} groupid ID of the group that is very important
+ * @param {*} params Deconstructed JSON response
  */
-function createTaskGroup(name, groupid = -1) {
-    if (groupid === -1) {
-        console.error('Cant create a group with the ID of -1')
-        return
-    }
+function loadTaskGroup({ group_id, group_name, json }) {
     const template = `
         <div class="row">
-            <div data-groupid="${groupid}" class="group--headline">
+            <div data-groupid="${group_id}" class="group--headline">
                 <div>
                     <i class="icon--accordion"></i>
-                    <span>${name}</span>
+                    <span>${group_name}</span>
                 </div>
                 <button></button>
             </div>
-            <ul data-groupid="${groupid}" class="todo--list"></ul>
+            <ul data-groupid="${group_id}" class="todo--list">
+                ${loadTodos(json)}
+            </ul>
         </div>`
     document.querySelector('content').insertAdjacentHTML('beforeEnd', template)
+}
+
+/**
+ * Loads and creates all todos from a JSON response
+ * @param {JSON} json JSON object containing all todo-groups + todos
+ */
+function loadTodos(json) {
+    let todos = ''
+    for ({ todo_id, todo_text, todo_done, todo_created } of json) {
+        if (!todo_id) continue
+        todos += `
+            <li class="todo--item">
+                <div>
+                    <div class="checkbox--wrapper">
+                        <input name="todo--check[]" type="checkbox" value="${todo_id}" 
+                        ${todo_done ? 'checked="checked"' : ''}>
+                    </div>
+                    <span name="todo--title[]">${todo_text}</span>
+                </div>
+                <span name="todo--date[]">
+                    ${toGermanDatetime(todo_created)}
+                </span>
+            </li>`
+    }
+    return todos
+}
+
+const options = {
+    year: 'numeric',
+    month: '2-digit',
+    day: '2-digit'
+}
+
+/**
+ * Formats a datetime to a german datetime
+ * @param {datetime} datetime Any datetime
+ */
+function toGermanDatetime(datetime) {
+    return new Date(datetime).toLocaleDateString('de-DE', options)
 }
