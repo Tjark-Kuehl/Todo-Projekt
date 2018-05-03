@@ -10,6 +10,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
             loading.style.display = 'none'
             content.style.display = 'block'
+            _init()
         }
     })
 })
@@ -61,6 +62,39 @@ document.addEventListener('DOMContentLoaded', () => {
 })
 
 /**
+ * Gets called when initialization is completed
+ */
+function _init() {
+    /* Extend todo-groups */
+    document.querySelectorAll('.group--headline').forEach(el =>
+        el.addEventListener('click', () => {
+            // Switch Icon rotation
+            const icon = filterElementsByDataset(
+                '.icon--accordion',
+                'groupid',
+                el.dataset.groupid
+            )
+            icon && !icon.style.transform
+                ? (icon.style.transform = 'rotate(-90deg)')
+                : (icon.style.transform = '')
+
+            // Shows / Hides todo list
+            const todoList = filterElementsByDataset(
+                '.todo--list',
+                'groupid',
+                el.dataset.groupid
+            )
+            todoList && todoList.style.display == 'none'
+                ? (todoList.style.display = 'flex')
+                : (todoList.style.display = 'none')
+            el.classList.contains('group--headline--active')
+                ? el.classList.remove('group--headline--active')
+                : el.classList.add('group--headline--active')
+        })
+    )
+}
+
+/**
  * Creates a new todo-group and inserts it into the DOM
  * @param {*} params Deconstructed JSON response
  */
@@ -69,12 +103,12 @@ function loadTaskGroup({ group_id, group_name, json }) {
         <div class="row">
             <div data-groupid="${group_id}" class="group--headline">
                 <div>
-                    <i class="icon--accordion"></i>
+                    <i data-groupid="${group_id}" class="icon--accordion"></i>
                     <span>${group_name}</span>
                 </div>
                 <button></button>
             </div>
-            <ul data-groupid="${group_id}" class="todo--list">
+            <ul data-groupid="${group_id}" class="todo--list" style="display: none">
                 ${loadTodos(json)}
             </ul>
         </div>`
@@ -118,4 +152,26 @@ const options = {
  */
 function toGermanDatetime(datetime) {
     return new Date(datetime).toLocaleDateString('de-DE', options)
+}
+
+/**
+ * Filters an element array for an dataset, then checks if the values are correct
+ * and returns the element that is correct
+ * @param {string} selector A selector for document.querySelectorAll(...)
+ * @param {string} dataset Dataset to check
+ * @param {string} checkval Value to check if the condition is met. Like a ID or something
+ */
+function filterElementsByDataset(selector, dataset, checkval) {
+    const sel = document.querySelectorAll(selector)
+    if (sel) {
+        for (let entry of sel) {
+            if (!entry || !entry.dataset) continue
+            if (
+                Object.keys(entry.dataset)[0] === dataset &&
+                Object.values(entry.dataset)[0] == checkval
+            )
+                return entry
+        }
+    }
+    return false
 }
