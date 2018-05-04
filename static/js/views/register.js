@@ -3,30 +3,41 @@ if (authenticated()) {
     setLocation('index')
 }
 
+/* Register on button click */
 document.addEventListener('DOMContentLoaded', () => {
-    /* Send XHR request on button click */
-    document.querySelector('#register-button').addEventListener('click', () => {
-        const password = document.querySelector('#password-input').value
-        const password_repeat = document.querySelector('#password-repeat-input')
-            .value
-
-        if (password !== password_repeat) {
-            Register_drawError('Passwörter stimmen nicht überein')
-            return
-        }
-
-        call(`/register`, {
-            email: document.querySelector('#email-input').value,
-            password
-        }).then(res => {
-            if (res.error) {
-                Register_drawError(res.error.msg)
-            } else {
-                setLocation('index')
-            }
-        })
-    })
+    document
+        .querySelector('#register-button')
+        .addEventListener('click', () => Register())
 })
+
+/* Register on spacebar press */
+document.body.onkeyup = e => {
+    if (e.target.tagName === 'INPUT' && e.keyCode == 13) {
+        Login()
+    }
+}
+
+function Register() {
+    const password = document.querySelector('#password-input').value
+    const password_repeat = document.querySelector('#password-repeat-input')
+        .value
+
+    if (password !== password_repeat) {
+        Register_drawError('Passwörter stimmen nicht überein')
+        return
+    }
+
+    call(`/register`, {
+        email: document.querySelector('#email-input').value,
+        password
+    }).then(res => {
+        if (res.error) {
+            Register_drawError(res.error.msg)
+        } else {
+            setLocation('index')
+        }
+    })
+}
 
 function Register_drawError(msg) {
     /* Show error wrapper if ! already shown */
