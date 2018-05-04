@@ -54,7 +54,10 @@ document.addEventListener('DOMContentLoaded', () => {
                     newGroup_wrapper.style.display = 'none'
 
                     /* Create TaskGroup element */
-                    //createTaskGroup(res.name, res.id)
+                    loadTaskGroup({
+                        group_id: res.id,
+                        group_name: res.name
+                    })
                 }
             })
         }
@@ -113,7 +116,7 @@ function loadTaskGroup({ group_id, group_name, json }) {
                 <button></button>
             </div>
             <ul data-groupid="${group_id}" class="todo--list" style="display: none">
-                ${loadTodos(json)}
+                ${json ? loadTodos(json) : ''}
             </ul>
         </div>`
     document.querySelector('content').insertAdjacentHTML('beforeEnd', template)
