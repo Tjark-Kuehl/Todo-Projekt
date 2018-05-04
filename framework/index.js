@@ -51,7 +51,7 @@ export function start() {
 
 const _use = []
 
-function processViewData(data, options) {
+function processData(data, options) {
     let matched = ''
     let js_data = ''
 
@@ -62,18 +62,20 @@ function processViewData(data, options) {
             'utf8'
         )
     })
-
     /* Get all files to import (templating syntax) */
-    while (
-        (matched = /{{[\s]*([^|\s]+)[\s]*[|]?[\s]*([^\s]*)[\s]*}}/.exec(data))
-    ) {
-        switch (matched[1]) {
+    let r1 = /({{{\s*body\s*}}})|(?:{{\s*([^|\s]+)\s*[|]?\s*([^\s]*)\s*}})/g
+    while ((matched = r1.exec(data)) !== null) {
+        if (matched[1]) {
+            continue
+        }
+
+        switch (matched[2]) {
             /* HTML Components */
             case 'component': {
                 data = data.replace(
                     matched[0],
                     fs.readFileSync(
-                        path.join(options.componentPath, matched[2])
+                        path.join(options.componentPath, matched[3])
                     )
                 )
                 break
@@ -85,7 +87,7 @@ function processViewData(data, options) {
                 style_data += sass
                     .renderSync({
                         data: fs.readFileSync(
-                            path.join(options.cssPath, matched[2]),
+                            path.join(options.cssPath, matched[3]),
                             'utf8'
                         ),
                         includePaths: [options.cssPath]
@@ -96,12 +98,12 @@ function processViewData(data, options) {
                 while (
                     (matched2 = /url\(['"]?(.+\.svg)['"]?\)/.exec(style_data))
                 ) {
-                    let data = fs
+                    let data2 = fs
                         .readFileSync(path.join(options.imgPath, matched2[1]))
                         .toString('base64')
                     style_data = style_data.replace(
                         matched2[1],
-                        `data:image/svg+xml;base64,${data}`
+                        `data:image/svg+xml;base64,${data2}`
                     )
                 }
                 style_data += '</style>'
@@ -110,21 +112,20 @@ function processViewData(data, options) {
             }
             /* Javascript */
             case 'script': {
-                if (!includes.includes(matched[2].slice(0, -3))) {
+                if (!includes.includes(matched[3].slice(0, -3))) {
                     js_data += fs.readFileSync(
-                        path.join(options.jsPath, matched[2]),
+                        path.join(options.jsPath, matched[3]),
                         'utf8'
                     )
-                    data = data.replace(matched[0], '')
-                } else {
-                    data = data.replace(matched[0], '')
                 }
+                data = data.replace(matched[0], '')
                 break
             }
-            default: {
-                console.error(`View compile error at '${matched[0]}'!`)
-            }
+            default:
+                console.error(`View compile error at '${matched}'!`)
+                break
         }
+        r1.lastIndex -= matched[0].length
     }
     return minify(
         html_autoprefixer.process(data) + '<script>' + js_data + '</script>',
@@ -198,7 +199,7 @@ export function router(options = {}) {
 
             _views[
                 `${path.join(dir, matches[1]).replace(/\\/g, '/')}`
-            ] = processViewData(data, options)
+            ] = processData(data, options)
         }
     })('')
     ;(function sc_layout(dir) {
@@ -214,7 +215,9 @@ export function router(options = {}) {
                 path.join(options.layoutPath, dir, filename),
                 'utf8'
             )
-            _layouts[`${path.join(dir, matches[1]).replace(/\\/g, '/')}`] = data
+            _layouts[
+                `${path.join(dir, matches[1]).replace(/\\/g, '/')}`
+            ] = processData(data, options)
         }
     })('')
 

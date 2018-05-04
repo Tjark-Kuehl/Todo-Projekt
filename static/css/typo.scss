@@ -1,11 +1,5 @@
-html,
-body {
-    font-weight: 300;
-}
-
 body {
     font-size: $font-size-main;
-    font-family: 'Roboto', sans-serif;
     h1 {
         font-size: $h1-size;
         color: $h1-color;
@@ -29,16 +23,14 @@ body {
     }
 }
 
-body {
-    @media (min-width: 768px) {
-        h1 {
-            font-size: $h1-size * 1.2;
-        }
-        h2 {
-            font-size: $h2-size * 1.2;
-        }
-        h3 {
-            font-size: $h3-size * 1.2;
-        }
+@media (min-width: 768px) {
+    h1 {
+        font-size: $h1-size * 1.2;
+    }
+    h2 {
+        font-size: $h2-size * 1.2;
+    }
+    h3 {
+        font-size: $h3-size * 1.2;
     }
 }
