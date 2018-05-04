@@ -68,28 +68,32 @@ function _init() {
     /* Extend todo-groups */
     document.querySelectorAll('.group--headline').forEach(el =>
         el.addEventListener('click', () => {
-            // Switch Icon rotation
-            const icon = filterElementsByDataset(
-                '.icon--accordion',
-                'groupid',
-                el.dataset.groupid
-            )
-            icon && !icon.style.transform
-                ? (icon.style.transform = 'rotate(-90deg)')
-                : (icon.style.transform = '')
-
             // Shows / Hides todo list
             const todoList = filterElementsByDataset(
                 '.todo--list',
                 'groupid',
                 el.dataset.groupid
             )
-            todoList && todoList.style.display == 'none'
-                ? (todoList.style.display = 'flex')
-                : (todoList.style.display = 'none')
-            el.classList.contains('group--headline--active')
-                ? el.classList.remove('group--headline--active')
-                : el.classList.add('group--headline--active')
+
+            // Check if list has items
+            if (todoList.children.length) {
+                todoList && todoList.style.display == 'none'
+                    ? (todoList.style.display = 'flex')
+                    : (todoList.style.display = 'none')
+                el.classList.contains('group--headline--active')
+                    ? el.classList.remove('group--headline--active')
+                    : el.classList.add('group--headline--active')
+
+                // Switch Icon rotation
+                const icon = filterElementsByDataset(
+                    '.icon--accordion',
+                    'groupid',
+                    el.dataset.groupid
+                )
+                icon && !icon.style.transform
+                    ? (icon.style.transform = 'rotate(-90deg)')
+                    : (icon.style.transform = '')
+            }
         })
     )
 }
