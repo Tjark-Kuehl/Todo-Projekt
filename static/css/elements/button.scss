@@ -5,4 +5,17 @@
     text-align: center;
     user-select: none;
     cursor: pointer;
+    &--submit {
+        background: #7777ef;
+        border: 1px solid #fff;
+        padding: 0.5rem;
+        border-radius: 4px;
+        margin-left: 1rem;
+        color: #fff;
+        &:hover {
+            background: #fff;
+            border: 1px solid #7777ef;
+            color: #7777ef;
+        }
+    }
 }

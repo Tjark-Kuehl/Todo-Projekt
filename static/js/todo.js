@@ -39,21 +39,25 @@ document.addEventListener('DOMContentLoaded', () => {
                             new_group_name.focus()
 
                             /* Submit new Group onClick */
-                            new_group_submit.addEventListener('click', e => {
-                                e.stopPropagation()
+                            new_group_submit.addEventListener(
+                                'click',
+                                event => {
+                                    /* Stop click event bubbeling */
+                                    event.stopPropagation()
 
-                                /* Submits new todo-group */
-                                submitNewGroup(new_group_name.value)
+                                    /* Submits new todo-group */
+                                    submitNewGroup(new_group_name.value)
 
-                                /* Clear input */
-                                new_group_name.value = ''
+                                    /* Clear input */
+                                    new_group_name.value = ''
 
-                                /* Hide Other Content */
-                                checkEl.style.display = 'none'
+                                    /* Hide Other Content */
+                                    checkEl.style.display = 'none'
 
-                                /* Show self */
-                                el.style.display = 'flex'
-                            })
+                                    /* Show self */
+                                    el.style.display = 'flex'
+                                }
+                            )
                         } else {
                             /* Hide self */
                             checkEl.style.display = 'none'
@@ -71,36 +75,69 @@ document.addEventListener('DOMContentLoaded', () => {
  */
 function _init() {
     /* Extend todo-groups */
-    document.querySelectorAll('.group--headline').forEach(el =>
+    document.querySelectorAll('.group--headline').forEach(el => {
+        /* Shows / Hides todo list */
         el.addEventListener('click', () => {
-            /* Shows / Hides todo list */
-            const todoList = filterElementsByDataset(
-                '.todo--list',
+            console.log('true')
+            toggleTodoGroup(el.dataset.groupid, true)
+        })
+
+        /* Get todo add button */
+        const addTodoButton = filterElementsByDataset(
+            '.group--headline > button',
+            'groupid',
+            el.dataset.groupid
+        )
+
+        addTodoButton.addEventListener('click', event => {
+            /* Stop click event bubbeling */
+            event.stopPropagation()
+
+            /* Toggle todo group if ! already toggled */
+            if (!isTodoGroupToggled(el.dataset.groupid))
+                toggleTodoGroup(el.dataset.groupid)
+
+            /* Get todo wrapper & controls */
+            const new_todo_wrapper = filterElementsByDataset(
+                '.todo--item',
                 'groupid',
                 el.dataset.groupid
             )
 
-            /* Check if list has items */
-            if (todoList.children.length) {
-                todoList && todoList.style.display == 'none'
-                    ? (todoList.style.display = 'flex')
-                    : (todoList.style.display = 'none')
-                el.classList.contains('group--headline--active')
-                    ? el.classList.remove('group--headline--active')
-                    : el.classList.add('group--headline--active')
+            const new_todo_name = filterElementsByDataset(
+                '[name="new--todo--name[]"]',
+                'groupid',
+                el.dataset.groupid
+            )
 
-                /* Switch Icon rotation */
-                const icon = filterElementsByDataset(
-                    '.icon--accordion',
-                    'groupid',
-                    el.dataset.groupid
-                )
-                icon && !icon.style.transform
-                    ? (icon.style.transform = 'rotate(-90deg)')
-                    : (icon.style.transform = '')
+            const new_todo_submit = filterElementsByDataset(
+                '[name="new--todo--submit[]"]',
+                'groupid',
+                el.dataset.groupid
+            )
+
+            if (new_todo_wrapper && new_todo_name && new_todo_submit) {
+                /* Show todo wrapper */
+                new_todo_wrapper.style.display = 'flex'
+
+                new_todo_submit.addEventListener('click', event => {
+                    /* Stop click event bubbeling */
+                    event.stopPropagation()
+
+                    /* Check if name has a length */
+                    if (new_todo_name.value.length) {
+                        submitNewTodo(el.dataset.groupid, new_todo_name.value)
+
+                        /* Reset new todo name input */
+                        new_todo_name.value = ''
+
+                        /* Hide todo wrapper */
+                        new_todo_wrapper.style.display = 'none'
+                    }
+                })
             }
         })
-    )
+    })
 
     /* Check todos */
     document.querySelectorAll('.todo--item').forEach(el =>
@@ -123,7 +160,55 @@ function _init() {
 }
 
 /**
- * Submits new group to the server
+ * Checks if todo group is toggled
+ * @param {number} groupid ID of group to toggle
+ */
+function isTodoGroupToggled(groupid) {
+    const todoHeadline = filterElementsByDataset(
+        '.group--headline',
+        'groupid',
+        groupid
+    )
+    return todoHeadline.classList.contains('group--headline--active')
+}
+
+/**
+ * Shows / Hides todo group
+ * @param {number} groupid ID of group to toggle
+ * @param {boolean} checkChildren Check if it has todos
+ */
+function toggleTodoGroup(groupid, checkChildren = false) {
+    const todoHeadline = filterElementsByDataset(
+        '.group--headline',
+        'groupid',
+        groupid
+    )
+    const todoList = filterElementsByDataset('.todo--list', 'groupid', groupid)
+
+    /* Check if list has items */
+    if (todoList.children.length > 1 || !checkChildren) {
+        todoList && todoList.style.display == 'none'
+            ? (todoList.style.display = 'flex')
+            : (todoList.style.display = 'none')
+
+        todoHeadline.classList.contains('group--headline--active')
+            ? todoHeadline.classList.remove('group--headline--active')
+            : todoHeadline.classList.add('group--headline--active')
+
+        /* Switch Icon rotation */
+        const icon = filterElementsByDataset(
+            '.icon--accordion',
+            'groupid',
+            groupid
+        )
+        icon && !icon.style.transform
+            ? (icon.style.transform = 'rotate(-90deg)')
+            : (icon.style.transform = '')
+    }
+}
+
+/**
+ * Submits a new todo group to the server
  * @param {string} groupName Name of the todo group
  */
 function submitNewGroup(groupName) {
@@ -141,6 +226,22 @@ function submitNewGroup(groupName) {
 }
 
 /**
+ * Submits a new todo to the server
+ * @param {number} groupid ID of the todo group
+ * @param {string} todoName Name of the todo
+ */
+function submitNewTodo(groupid, todoName) {
+    /* Check if group id and todo name is valid */
+    if (groupid && todoName)
+        call(`/create-todo`, { groupid, todoName }).then(res => {
+            console.log(res)
+            if (!res.error) {
+                insertTodo(groupid, res.id, res.text, res.created)
+            }
+        })
+}
+
+/**
  * Creates a new todo-group and inserts it into the DOM
  * @param {*} params Deconstructed JSON response
  */
@@ -152,9 +253,13 @@ function loadTaskGroup({ group_id, group_name, json }) {
                     <i data-groupid="${group_id}" class="icon--accordion"></i>
                     <span>${group_name}</span>
                 </div>
-                <button></button>
+                <button data-groupid="${group_id}"></button>
             </div>
             <ul data-groupid="${group_id}" class="todo--list" style="display: none">
+                <li data-groupid="${group_id}" class="todo--item" style="display: none; justify-content: flex-start">
+                    <input name="new--todo--name[]" data-groupid="${group_id}" class="todo" placeholder="Neues Todo">
+                    <button name="new--todo--submit[]" data-groupid="${group_id}" class="btn btn--submit">Erstellen</button>
+                </li>
                 ${json ? loadTodos(json) : ''}
             </ul>
         </div>`
@@ -182,6 +287,47 @@ function loadTodos(json) {
             </li>`
     }
     return todos
+}
+
+/**
+ * Inserts a new todo in a already initialized todo group
+ * @param {number} group_id ID of the todo group
+ * @param {number} todo_id ID of the todo
+ * @param {string} todo_text Todo text
+ * @param {datetime} todo_created When the todo was created
+ * @param {boolean} todo_done Is the todo marked as done ?
+ */
+function insertTodo(
+    group_id,
+    todo_id,
+    todo_text,
+    todo_created,
+    todo_done = false
+) {
+    if (todo_id && todo_text && todo_created) {
+        /* Todo Group */
+        const groupEl = filterElementsByDataset(
+            '.todo--list',
+            'groupid',
+            group_id
+        )
+
+        /* Insert new Todo */
+        if (groupEl)
+            groupEl.insertAdjacentHTML(
+                'beforeEnd',
+                loadTodos([
+                    {
+                        todo_id,
+                        todo_text,
+                        todo_done,
+                        todo_created
+                    }
+                ])
+            )
+        return !!groupEl
+    }
+    return false
 }
 
 const options = {

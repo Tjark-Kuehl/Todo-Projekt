@@ -4,7 +4,8 @@ import { JE400, JE1002, JE500, NO_TODOS } from '../../lib/error'
 import {
     createNewTodoGroup,
     getUserTodos,
-    toggleUserTodo
+    toggleUserTodo,
+    createNewTodo
 } from '../../lib/routes/todo'
 
 const router = new Router()
@@ -18,7 +19,7 @@ router.post('/create-group', async (req, res) => {
 
     let post = req.postParams
     /* Catch bad request */
-    if (!post) {
+    if (!post || !post.groupName) {
         res.json(JE400)
         return true
     }
@@ -30,6 +31,35 @@ router.post('/create-group', async (req, res) => {
 
     if (newGroup) {
         res.json(newGroup)
+    } else {
+        res.json(JE500)
+    }
+
+    return true
+})
+
+router.post('/create-todo', async (req, res) => {
+    /* Early return when user is not authenticated */
+    if (!authGuard(req)) {
+        res.json(JE1002)
+        return true
+    }
+
+    let post = req.postParams
+    /* Catch bad request */
+    if (!post || !post.groupid || !post.todoName) {
+        res.json(JE400)
+        return true
+    }
+
+    const newTodo = await createNewTodo(
+        req.jwt.payload.id,
+        post.groupid,
+        post.todoName
+    )
+
+    if (newTodo) {
+        res.json(newTodo)
     } else {
         res.json(JE500)
     }
