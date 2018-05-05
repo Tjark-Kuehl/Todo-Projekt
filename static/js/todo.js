@@ -68,92 +68,103 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 })
 
-/**
- * Gets called when initialization is completed
- */
 function _init() {
     /* Extend todo-groups */
-    document.querySelectorAll('.group--headline').forEach(el => {
-        /* Shows / Hides todo list */
-        el.addEventListener('click', () => {
-            toggleTodoGroup(el.dataset.groupid, true)
-        })
+    document
+        .querySelectorAll('.group--headline')
+        .forEach(el => initTodoGroup(el))
 
-        /* Get todo add button */
-        const addTodoButton = filterElementsByDataset(
-            '.group--headline > button',
+    /* Check todos */
+    document.querySelectorAll('.todo--item').forEach(el => initTodo(el))
+}
+
+/**
+ * Initializes a todo group (EventListeners & functions)
+ * @param {Element} el Group headline element
+ */
+function initTodoGroup(el) {
+    /* Shows / Hides todo list */
+    el.addEventListener('click', () => {
+        toggleTodoGroup(el.dataset.groupid, true)
+    })
+
+    /* Get todo add button */
+    const addTodoButton = filterElementsByDataset(
+        '.group--headline > button',
+        'groupid',
+        el.dataset.groupid
+    )
+
+    addTodoButton.addEventListener('click', event => {
+        /* Stop click event bubbeling */
+        event.stopPropagation()
+
+        /* Toggle todo group if ! already toggled */
+        if (!isTodoGroupToggled(el.dataset.groupid))
+            toggleTodoGroup(el.dataset.groupid)
+
+        /* Get todo wrapper & controls */
+        const new_todo_wrapper = filterElementsByDataset(
+            '.todo--item',
             'groupid',
             el.dataset.groupid
         )
 
-        addTodoButton.addEventListener('click', event => {
-            /* Stop click event bubbeling */
-            event.stopPropagation()
+        const new_todo_name = filterElementsByDataset(
+            '[name="new--todo--name[]"]',
+            'groupid',
+            el.dataset.groupid
+        )
 
-            /* Toggle todo group if ! already toggled */
-            if (!isTodoGroupToggled(el.dataset.groupid))
-                toggleTodoGroup(el.dataset.groupid)
+        const new_todo_submit = filterElementsByDataset(
+            '[name="new--todo--submit[]"]',
+            'groupid',
+            el.dataset.groupid
+        )
 
-            /* Get todo wrapper & controls */
-            const new_todo_wrapper = filterElementsByDataset(
-                '.todo--item',
-                'groupid',
-                el.dataset.groupid
-            )
+        if (new_todo_wrapper && new_todo_name && new_todo_submit) {
+            /* Show todo wrapper */
+            new_todo_wrapper.style.display = 'flex'
 
-            const new_todo_name = filterElementsByDataset(
-                '[name="new--todo--name[]"]',
-                'groupid',
-                el.dataset.groupid
-            )
+            new_todo_submit.addEventListener('click', event => {
+                /* Stop click event bubbeling */
+                event.stopPropagation()
 
-            const new_todo_submit = filterElementsByDataset(
-                '[name="new--todo--submit[]"]',
-                'groupid',
-                el.dataset.groupid
-            )
+                /* Check if name has a length */
+                if (new_todo_name.value.length) {
+                    submitNewTodo(el.dataset.groupid, new_todo_name.value)
 
-            if (new_todo_wrapper && new_todo_name && new_todo_submit) {
-                /* Show todo wrapper */
-                new_todo_wrapper.style.display = 'flex'
+                    /* Reset new todo name input */
+                    new_todo_name.value = ''
 
-                new_todo_submit.addEventListener('click', event => {
-                    /* Stop click event bubbeling */
-                    event.stopPropagation()
-
-                    /* Check if name has a length */
-                    if (new_todo_name.value.length) {
-                        submitNewTodo(el.dataset.groupid, new_todo_name.value)
-
-                        /* Reset new todo name input */
-                        new_todo_name.value = ''
-
-                        /* Hide todo wrapper */
-                        new_todo_wrapper.style.display = 'none'
-                    }
-                })
-            }
-        })
-    })
-
-    /* Check todos */
-    document.querySelectorAll('.todo--item').forEach(el =>
-        el.addEventListener('click', () => {
-            if (el.dataset.todoid) {
-                /* Toggle todo style */
-                if (el.classList.contains('todo--item--done')) {
-                    el.classList.remove('todo--item--done')
-                } else {
-                    el.classList.add('todo--item--done')
+                    /* Hide todo wrapper */
+                    new_todo_wrapper.style.display = 'none'
                 }
+            })
+        }
+    })
+}
 
-                /* Toggle todo in server */
-                call(`/toggle-todo`, {
-                    todo_id: el.dataset.todoid
-                })
+/**
+ * Initializes a todo (EventListeners & functions)
+ * @param {Element} el todo item element
+ */
+function initTodo(el) {
+    el.addEventListener('click', () => {
+        if (el.dataset.todoid) {
+            /* Toggle todo style */
+            if (el.classList.contains('todo--item--done')) {
+                el.classList.remove('todo--item--done')
+            } else {
+                el.classList.add('todo--item--done')
             }
-        })
-    )
+
+            /* Toggle todo in server */
+            call(`/toggle-todo`, {
+                todo_id: el.dataset.todoid
+            })
+        }
+    })
 }
 
 /**
@@ -218,6 +229,14 @@ function submitNewGroup(groupName) {
                     group_id: res.id,
                     group_name: res.name
                 })
+
+                /* Init Todo group */
+                const groupEl = filterElementsByDataset(
+                    '.group--headline',
+                    'groupid',
+                    res.id
+                )
+                initTodoGroup(groupEl)
             }
         })
 }
@@ -321,6 +340,11 @@ function insertTodo(
                     }
                 ])
             )
+
+        /* Init Todo item */
+        const todoEl = filterElementsByDataset('.todo--item', 'todoid', todo_id)
+        initTodo(todoEl)
+
         return !!groupEl
     }
     return false
