@@ -1,17 +1,15 @@
 /* Get todos on page load */
 document.addEventListener('DOMContentLoaded', () => {
     call(`/get-todos`).then(res => {
-        if (!res.error) {
-            res.forEach(entry => loadTaskGroup(entry))
+        if (!res.error) res.forEach(entry => loadTaskGroup(entry))
 
-            /* Show content when page it is loaded */
-            const loading = document.querySelector('loading')
-            const content = document.querySelector('content')
+        /* Show content when page it is loaded */
+        const loading = document.querySelector('loading')
+        const content = document.querySelector('content')
 
-            loading.style.display = 'none'
-            content.style.display = 'block'
-            _init()
-        }
+        loading.style.display = 'none'
+        content.style.display = 'block'
+        _init()
     })
 })
 
@@ -78,7 +76,6 @@ function _init() {
     document.querySelectorAll('.group--headline').forEach(el => {
         /* Shows / Hides todo list */
         el.addEventListener('click', () => {
-            console.log('true')
             toggleTodoGroup(el.dataset.groupid, true)
         })
 
@@ -234,7 +231,6 @@ function submitNewTodo(groupid, todoName) {
     /* Check if group id and todo name is valid */
     if (groupid && todoName)
         call(`/create-todo`, { groupid, todoName }).then(res => {
-            console.log(res)
             if (!res.error) {
                 insertTodo(groupid, res.id, res.text, res.created)
             }
