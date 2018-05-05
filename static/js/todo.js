@@ -126,6 +126,7 @@ function initTodoGroup(el) {
             /* Show todo wrapper */
             new_todo_wrapper.style.display = 'flex'
 
+            /* Submit by button click */
             new_todo_submit.addEventListener('click', event => {
                 /* Stop click event bubbeling */
                 event.stopPropagation()
