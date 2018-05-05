@@ -1,4 +1,4 @@
-console.log('Authenticated: ' + authenticated())
+// console.log('Authenticated: ' + authenticated())
 function authenticated() {
     const cookie = document.cookie.split('=', 2)[1]
     const parsed = parseJwt(cookie)
@@ -18,4 +18,9 @@ function parseJwt(token) {
 
 function removeCookie(name) {
     document.cookie = name + '=;expires=Thu, 01 Jan 1970 00:00:01 GMT;'
+}
+
+function logout() {
+    removeCookie('jwt-todoprj')
+    setLocation('login')
 }
