@@ -2,14 +2,16 @@
     {{ component | header.html }}
     <loading></loading>
     <content style="display: none">
-        <div class="row row--group--new">
+        <div id="new--group--control" class="row row--center">
             <!-- New Group Shown -->
-            <button id="newGroup-button" class="btn btn--new_group">
-                <div class="plus-image"></div>Neue&nbsp;Gruppe</button>
+            <div class="new--group--wrapper">
+                <div class="plus-icon"></div>
+                Neue&nbsp;Gruppe
+            </div>
             <!-- New Group Hidden -->
-            <div id="newGroup-wrapper" style="display: none">
-                <input id="newGroup-name-input" placeholder="Erstelle eine neue Gruppe!">
-                <button id="newGroup-submit-button" class="btn btn-save">Erstellen</button>
+            <div class="new--group--wrapper" style="display: none">
+                <input id="new--group--name" onclick="event.stopPropagation()" placeholder="Erstelle eine neue Gruppe!">
+                <button id="new--group--submit" class="btn">Erstellen</button>
             </div>
         </div>
     </content>

@@ -17,52 +17,67 @@ document.addEventListener('DOMContentLoaded', () => {
 
 /* Creating a new Todo-Group */
 document.addEventListener('DOMContentLoaded', () => {
-    const newGroup_name_input = document.querySelector('#newGroup-name-input')
-    const newGroup_wrapper = document.querySelector('#newGroup-wrapper')
-    const newGroup_button = document.querySelector('#newGroup-button')
-    const newGroup_submit_button = document.querySelector(
-        '#newGroup-submit-button'
-    )
+    const new_group_control = document.querySelector('#new--group--control')
 
-    /* New Group button click */
-    newGroup_button.addEventListener('click', function() {
-        /* Hide self */
-        this.style.display = 'none'
+    const new_group_name = document.querySelector('#new--group--name')
+    const new_group_submit = document.querySelector('#new--group--submit')
 
-        /* Show Group Wrapper */
-        newGroup_wrapper.style.display = 'flex'
+    if (new_group_control) {
+        new_group_control.addEventListener('click', function() {
+            for (let el of new_group_control.children) {
+                /* Early break when el is hidden  */
+                if (el.style.display === 'none') break
 
-        /* Step into input box */
-        newGroup_name_input.focus()
-    })
+                if (el !== this.children[0] || el.style.display !== 'none') {
+                    for (let checkEl of new_group_control.children) {
+                        if (checkEl !== el) {
+                            /* Show Other Content */
+                            checkEl.style.display = 'flex'
 
-    /* Submit new Group */
-    newGroup_submit_button.addEventListener('click', function() {
-        const groupName = newGroup_name_input.value
+                            /* Step into input box */
+                            new_group_name.focus()
 
-        /* Check if group name is valid */
-        if (groupName) {
-            call(`/create-group`, { groupName }).then(res => {
-                if (!res.error) {
-                    /* Reset input text */
-                    newGroup_name_input.value = ''
+                            /* Submit new Group onClick */
+                            new_group_submit.addEventListener('click', e => {
+                                e.stopPropagation()
 
-                    /* Reactivate new group button */
-                    newGroup_button.style.display = 'block'
+                                /* Submits new todo-group */
+                                submitNewGroup(new_group_name.value)
 
-                    /* Hide new group input form */
-                    newGroup_wrapper.style.display = 'none'
+                                /* Clear input */
+                                new_group_name.value = ''
 
-                    /* Create TaskGroup element */
-                    loadTaskGroup({
-                        group_id: res.id,
-                        group_name: res.name
-                    })
+                                /* Hide Other Content */
+                                checkEl.style.display = 'none'
+
+                                /* Show self */
+                                el.style.display = 'flex'
+                            })
+                        } else {
+                            /* Hide self */
+                            checkEl.style.display = 'none'
+                        }
+                    }
+                    break
                 }
-            })
-        }
-    })
+            }
+        })
+    }
 })
+
+function submitNewGroup(groupName) {
+    /* Check if group name is valid */
+    if (groupName)
+        call(`/create-group`, { groupName }).then(res => {
+            if (!res.error) {
+                /* Create TaskGroup element */
+                loadTaskGroup({
+                    group_id: res.id,
+                    group_name: res.name
+                })
+            }
+        })
+}
 
 /**
  * Gets called when initialization is completed

@@ -97,20 +97,43 @@
     }
 }
 
-.row--group--new {
+.row--center {
     justify-content: center;
     &:not(:first-of-type) {
         border-top: 1px solid rgba(0, 0, 0, 0.25);
     }
-    #newGroup-wrapper {
+    .new--group--wrapper {
+        display: flex;
+        color: $btn-color;
+        font-size: $btn-font-size;
+        align-items: center;
         width: 100%;
         justify-content: center;
-        #newGroup-name-input {
+        .plus-icon {
+            width: 1rem;
+            height: 1rem;
+            margin-right: 0.5rem;
+            background: no-repeat 100% url('plus.svg');
+        }
+        input {
             border: 1px solid #7777ef;
             padding: 0.5rem;
             border-radius: 4px;
             outline: 0;
             width: 70%;
+        }
+        button {
+            background: #7777ef;
+            border: 1px solid #fff;
+            padding: 0.5rem;
+            border-radius: 4px;
+            margin-left: 1rem;
+            color: #fff;
+            &:hover {
+                background: #fff;
+                border: 1px solid #7777ef;
+                color: #7777ef;
+            }
         }
     }
 }
