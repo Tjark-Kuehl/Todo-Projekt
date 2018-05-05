@@ -185,3 +185,11 @@
         width: 100%;
     }
 }
+
+@media (max-width: 400px) {
+    .row {
+        .todo--list {
+            padding-left: 0;
+        }
+    }
+}

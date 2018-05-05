@@ -13,9 +13,9 @@ import html_autoprefixer from 'html-autoprefixer'
 import { Router } from './classes/router'
 export * from './classes/router'
 
-import cfg from '../config/global.config'
-import includes from '../config/includes.config'
-import htmlminify_options from '../config/html-minify.config'
+import cfg from '../config/global.config.json'
+import includes from '../config/includes.config.json'
+import htmlminify_options from '../config/html-minify.config.json'
 import babelClient_options from '../config/babel-client.config.json'
 
 const uglify_options = htmlminify_options.minifyJS
