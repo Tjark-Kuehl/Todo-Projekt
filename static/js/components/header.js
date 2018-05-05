@@ -1,17 +1,19 @@
 document.addEventListener('DOMContentLoaded', () => {
     //Navigation left
-    let headerNavMain = document.querySelector('.header--nav--main')
-    let headerNavMainTriggerd = document.querySelector('.header--nav--main>ul')
-    headerNavMain.addEventListener('click', () => {
-        headerNavMainTriggerd.classList.toggle('triggered')
-    })
-    //Navigation right
-    let headerNavProfil = document.querySelector('.header--nav--profil')
-    let headerNavProfilTriggerd = document.querySelector(
-        '.header--nav--profil>ul'
-    )
+    document
+        .querySelector('.header--nav--main')
+        .addEventListener('click', () => {
+            document
+                .querySelector('.header--nav--main>ul')
+                .classList.toggle('triggered')
+        })
 
-    headerNavProfil.addEventListener('click', () => {
-        headerNavProfilTriggerd.classList.toggle('triggered')
-    })
+    //Navigation right
+    document
+        .querySelector('.header--nav--profil')
+        .addEventListener('click', () => {
+            document
+                .querySelector('.header--nav--profil>ul')
+                .classList.toggle('triggered')
+        })
 })

@@ -10,9 +10,7 @@
     },
     "nodemonConfig": {
         "delay": "50",
-        "watch": [
-            "*.*"
-        ],
+        "watch": ["*.*"],
         "ext": "js html scss sass json svg png jpg jpeg"
     },
     "devDependencies": {
@@ -32,13 +30,6 @@
         "pg": "^7.4.2",
         "uglify-es": "^3.3.9"
     },
-    "keywords": [
-        "schule",
-        "projekt",
-        "todo",
-        "node",
-        "javascript"
-    ],
-    "author": "Bennet Russnak, Rami Gomaa, Tjark Kühl",
-    "license": "ISC"
+    "keywords": ["schule", "projekt", "todo", "node", "javascript"],
+    "author": "Bennet Russnak, Rami Gomaa, Tjark Kühl"
 }

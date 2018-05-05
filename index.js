@@ -8,7 +8,6 @@ import { jwt_init } from './lib/jwt'
 use(mwStatic('/public'))
 use(post())
 
-//use(cookieParser('SECRET', options))
 use(cookieParser())
 use(jwt_init)
 
