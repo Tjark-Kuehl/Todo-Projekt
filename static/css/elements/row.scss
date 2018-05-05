@@ -4,7 +4,6 @@
     background-color: $row-backgroundcolor;
     align-items: center;
     min-height: 4rem;
-    cursor: pointer;
     .group--headline {
         display: flex;
         justify-content: space-between;
@@ -14,6 +13,7 @@
         height: 4rem;
         padding: 0 1rem;
         border-top: 1px solid rgba(0, 0, 0, 0.25);
+        cursor: pointer;
         &--active {
             border-bottom: 1px solid rgba(0, 0, 0, 0.25);
         }
@@ -62,7 +62,6 @@
                 border-bottom: 1px solid rgba(0, 0, 0, 0.25);
             }
             div > span {
-                padding: 0 1.5rem;
                 text-overflow: ellipsis;
             }
             div > span,
@@ -73,10 +72,14 @@
             div {
                 display: flex;
                 align-items: center;
-                .todo--checked {
-                    border: 1px solid transparent;
-                    background-image: url('checked.svg');
-                    background-repeat: no-repeat;
+                .todo--checkbox {
+                    width: 2.5rem;
+                    height: 2.5rem;
+                    border: 0.05rem solid rgba(0, 0, 0, 0.5);
+                    border-radius: 50%;
+                    position: relative;
+                    cursor: pointer;
+                    margin-right: 1.5rem;
                 }
                 .checkbox--wrapper {
                     width: 2.5rem;
@@ -90,6 +93,52 @@
                         height: 100%;
                         border-radius: 50%;
                         cursor: pointer;
+                    }
+                }
+            }
+            &--done {
+                color: rgba(0, 0, 0, 0.5);
+                div {
+                    span {
+                        position: relative;
+                        &::after {
+                            content: ' ';
+                            position: absolute;
+                            top: 50%;
+                            left: 0;
+                            width: 100%;
+                            height: 1px;
+                            background: rgba(0, 0, 0, 0.5);
+                            animation-name: strike;
+                            animation-duration: 1s;
+                            animation-timing-function: linear;
+                            animation-iteration-count: 1;
+                            animation-fill-mode: forwards;
+                        }
+                    }
+                    .todo--checkbox {
+                        border: 0.05rem solid transparent;
+                        background-image: url('./checked.svg');
+                        background-repeat: no-repeat;
+                        opacity: 0.5;
+                        transition: 1s;
+                    }
+                }
+                span {
+                    position: relative;
+                    &::after {
+                        content: ' ';
+                        position: absolute;
+                        top: 50%;
+                        left: 0;
+                        width: 100%;
+                        height: 1px;
+                        background: rgba(0, 0, 0, 0.5);
+                        animation-name: strike;
+                        animation-duration: 1s;
+                        animation-timing-function: linear;
+                        animation-iteration-count: 1;
+                        animation-fill-mode: forwards;
                     }
                 }
             }
@@ -135,5 +184,14 @@
                 color: #7777ef;
             }
         }
+    }
+}
+
+@keyframes strike {
+    0% {
+        width: 0;
+    }
+    100% {
+        width: 100%;
     }
 }
