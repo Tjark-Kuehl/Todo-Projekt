@@ -154,13 +154,13 @@ export function router(options = {}) {
         path.join(path.dirname(module.parent.filename), 'layouts')
     options.jsPath =
         options.jsPath ||
-        path.join(path.dirname(module.parent.filename), 'static', 'js')
+        path.join(path.dirname(module.parent.filename), 'assets', 'js')
     options.cssPath =
         options.cssPath ||
-        path.join(path.dirname(module.parent.filename), 'static', 'css')
+        path.join(path.dirname(module.parent.filename), 'assets', 'css')
     options.imgPath =
         options.imgPath ||
-        path.join(path.dirname(module.parent.filename), 'static', 'img')
+        path.join(path.dirname(module.parent.filename), 'assets', 'img')
     options.componentPath =
         options.componentPath ||
         path.join(path.dirname(module.parent.filename), 'components')

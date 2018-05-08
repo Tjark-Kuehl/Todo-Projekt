@@ -200,9 +200,7 @@ function toggleTodoGroup(groupid, checkChildren = false) {
             ? (todoList.style.display = 'flex')
             : (todoList.style.display = 'none')
 
-        todoHeadline.classList.contains('group--headline--active')
-            ? todoHeadline.classList.remove('group--headline--active')
-            : todoHeadline.classList.add('group--headline--active')
+        todoHeadline.classList.toggle('group--headline--active')
 
         /* Switch Icon rotation */
         const icon = filterElementsByDataset(
