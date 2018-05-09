@@ -291,13 +291,16 @@ function loadTodos(json) {
         todos += `
             <li data-todoid="${todo_id}" class="todo--item
             ${todo_done ? ' todo--item--done' : ''}">
-                <div>
+                <div class="start">
                     <div data-todoid="${todo_id}" class="todo--checkbox"></div>
                     <span name="todo--title[]">${todo_text}</span>
                 </div>
-                <span name="todo--date[]">
-                    ${toGermanDatetime(todo_created)}
-                </span>
+                <div class="end">
+                    <span name="todo--date[]">
+                        ${toGermanDatetime(todo_created)}
+                    </span>
+                    <button data-todoid="${todo_id}" class="remove" onClick="removeTodo(event, this)"></button>
+                </div>
             </li>`
     }
     return todos
@@ -383,4 +386,30 @@ function filterElementsByDataset(selector, dataset, checkval) {
         }
     }
     return false
+}
+
+function removeTodo(event, el) {
+    event.stopPropagation()
+
+    if (el.dataset) {
+        const todo_id = Object.values(el.dataset)[0]
+
+        const removeEl = filterElementsByDataset(
+            '.todo--item',
+            'todoid',
+            todo_id
+        )
+
+        if (removeEl) {
+            removeEl.remove()
+        }
+
+        call('/remove-todo', {
+            todo_id
+        }).then(res => {
+            if (res.error) {
+                console.error(res.error.msg)
+            }
+        })
+    }
 }
