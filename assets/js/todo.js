@@ -271,7 +271,7 @@ function loadTaskGroup({ group_id, group_name, json }) {
             </div>
             <ul data-groupid="${group_id}" class="todo--list" style="display: none">
                 <li data-groupid="${group_id}" class="todo--item" style="display: none; justify-content: flex-start">
-                    <input name="new--todo--name[]" data-groupid="${group_id}" class="todo" placeholder="Neues Todo">
+                    <input name="new--todo--name[]" data-groupid="${group_id}" class="input" placeholder="Neues Todo">
                     <button name="new--todo--submit[]" data-groupid="${group_id}" class="btn btn--submit">Erstellen</button>
                 </li>
                 ${json ? loadTodos(json) : ''}

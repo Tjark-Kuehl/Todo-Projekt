@@ -1,4 +1,3 @@
-// console.log('Authenticated: ' + authenticated())
 function authenticated() {
     const cookie = document.cookie.split('=', 2)[1]
     const parsed = parseJwt(cookie)

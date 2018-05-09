@@ -336,9 +336,6 @@ export function mwStatic(p) {
                 }
 
                 let ext = path.extname(req.url.pathname)
-                /*let magic =
-                    data[0] | (data[1] << 8) | (data[2] << 16) | (data[3] << 24)
-                console.log(magic)*/
                 res.writeHead(200, {
                     'Content-Type': mimes[ext] || mimes['default']
                 })
