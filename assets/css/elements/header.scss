@@ -8,9 +8,9 @@ header {
                 background-image: url('menu_bars.svg');
             }
         }
-        &--nav--profil {
+        &--nav--logout {
             &::before {
-                background-image: url('profile.svg');
+                background-image: url('logout.svg');
             }
         }
     }
