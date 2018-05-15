@@ -228,7 +228,7 @@ export function router(options = {}) {
                 'Content-Type': 'text/plain',
                 'Content-Encoding': 'gzip'
             })
-            return zlib.gzip(new Buffer(text, 'utf-8'), (error, result) => {
+            return zlib.gzip(Buffer.from(text), (error, result) => {
                 return res.end(result)
             })
         }
@@ -249,7 +249,7 @@ export function router(options = {}) {
                     'Content-Encoding': 'gzip'
                 })
 
-                return zlib.gzip(new Buffer(page, 'utf-8'), (error, result) => {
+                return zlib.gzip(Buffer.from(page), (error, result) => {
                     return res.end(result)
                 })
             }
@@ -270,7 +270,7 @@ export function router(options = {}) {
                 'Content-Encoding': 'gzip'
             })
             return zlib.gzip(
-                new Buffer(JSON.stringify(jsObject), 'utf-8'),
+                Buffer.from(JSON.stringify(jsObject)),
                 (error, result) => {
                     return res.end(result)
                 }
