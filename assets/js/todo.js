@@ -236,6 +236,8 @@ function submitNewGroup(groupName) {
                     res.id
                 )
                 initTodoGroup(groupEl)
+            } else {
+                console.error(res.error)
             }
         })
 }

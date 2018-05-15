@@ -1,10 +1,7 @@
 import { Router } from '../../framework'
 import { authGuard } from '../../lib/routes/auth'
 import { JE400, JE1002, JE500 } from '../../lib/error'
-import {
-    createNewTodoGroup,
-    createNewTodo
-} from '../../lib/routes/todo'
+import { createNewTodoGroup, createNewTodo } from '../../lib/routes/todo'
 
 const router = new Router()
 

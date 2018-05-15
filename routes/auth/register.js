@@ -1,9 +1,6 @@
 import { Router } from '../../framework'
 import { tryRegisterUser } from '../../lib/routes/auth'
-import {
-    JE400,
-    REGISTRATION_FAILED
-} from '../../lib/error'
+import { JE400, REGISTRATION_FAILED } from '../../lib/error'
 
 const router = new Router()
 
@@ -28,7 +25,6 @@ router.post('/register', async (req, res) => {
         console.log('[REGISTERED]: ', post.email)
         req.jwt.sign(
             { id: registered.id, email: registered.email },
-            false,
             registered.password
         )
         res.json({ email: post.email })

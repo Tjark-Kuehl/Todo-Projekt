@@ -1,9 +1,6 @@
 import { Router } from '../../framework'
 import { tryLoginUser } from '../../lib/routes/auth'
-import {
-    JE400,
-    LOGIN_FAILED,
-} from '../../lib/error'
+import { JE400, LOGIN_FAILED } from '../../lib/error'
 
 const router = new Router()
 
@@ -26,11 +23,7 @@ router.post('/login', async (req, res) => {
     /* If login succeeded or not */
     if (login) {
         console.log('[LOGIN]: ', post.email)
-        req.jwt.sign(
-            { id: login.id, email: login.email },
-            false,
-            login.password
-        )
+        req.jwt.sign({ id: login.id, email: login.email }, login.password)
         res.json({
             email: login.email
         })
